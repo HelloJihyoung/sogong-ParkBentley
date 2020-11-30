@@ -16,17 +16,17 @@
 
     </script>
     <nav class="loginText">
-        <%if ( list[0].ID == "root" ) { %>
+        <%if ( Reservation.ID == "root" ) { %>
             <li><a href="/login">Login</a></li>
             <li><a href="/join">Join</a></li>
         <% } else { %>
-            <li><a href="/main"><%=list[0].ID %>님 환영합니다!</a></li>
+            <li><a href="/main" id="logined"><%=Reservation.ID %>님 환영합니다!</a></li>
         <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
 
-            <a href="/index">Park Bentley</a>
+            <a href="/main">Park Bentley</a>
 
         </div>
         <ul class="navbar_menu">
@@ -34,6 +34,8 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
+
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -48,7 +50,7 @@
                     <li><a href="/charge">잔액 충전</a></li>
                 </ul>
             </li>
-            <%if ( list[0].ID == "admin" ) { %>
+            <%if ( Reservation.ID == "admin" ) { %>
                 <li><a href="">사용 통계 조회</a>
                     <ul>
                         <li><a href="/adminMonth">월별 사용통계</a></li>
@@ -61,14 +63,15 @@
     </nav>
     <!-- 기본 테마 끝 -->
     <div class="yellowBar">
+        <form action="/adminMonth" method="POST">
         <p class="yellowBarText">월별 사용 통계</p>
-        <h2 id="year">
+        <h2>
             날짜 선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="select_year" name="Year"
                 onchange="javascript:pickMonthAdmin();"></select>년 <select id="select_month" name="Month"
                 onchange="javascript:pickMonthAdmin();"></select> 월
         </h2>
-        <button onclick=getMonthAdmin();>조회</button>
-
+        <button type="submit" onclick=getMonthAdmin();>조회</button>
+    </form> 
         <h1 class="js-startDate" id="termDate"></h1>
     </div>
     <div class="js-pickDate" id="date">
@@ -90,13 +93,12 @@
     <script src="./content/graph/jquery.min.js" type="text/javascript"></script>
     <script src="./content/graph/jqbar.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#bar-7').jqbar({ label: 'Wal', barColor: '#D64747', value:"<%=Reservation.count %>", orientation: 'v' });
-            $('#bar-8').jqbar({ label: 'Ohi', barColor: '#FF681F', value: 70, orientation: 'v' });
-            $('#bar-9').jqbar({ label: 'Song', barColor: '#ea805c', value: 50, orientation: 'v' });
-            $('#bar-10').jqbar({ label: 'Pisho', barColor: '#88bbc8', value: 90, orientation: 'v' });
-            $('#bar-11').jqbar({ label: 'Mara', barColor: '#939393', value: 70, orientation: 'v' });
-            $('#bar-12').jqbar({ label: 'Dagha', barColor: '#3a89c9', value: 50, orientation: 'v' });
+        $(document).ready(function () { 
+            $('#bar-7').jqbar({ label: "<%=Reservation[0].m%>월", barColor: '#D64747', value: "<%=Reservation[0].c %>", orientation: 'v' });
+            $('#bar-8').jqbar({ label: "<%=Reservation[1].m%>월", barColor: '#FF681F', value: "<%=Reservation[1].c %>", orientation: 'v' });
+            $('#bar-9').jqbar({ label: "<%=Reservation[2].m%>월", barColor: '#ea805c', value: "<%=Reservation[2].c %>", orientation: 'v' });
+            $('#bar-10').jqbar({ label: "<%=Reservation[3].m%>월", barColor: '#88bbc8', value: "<%=Reservation[3].c %>", orientation: 'v' });
+            $('#bar-11').jqbar({ label: "<%=Reservation[4].m%>월", barColor: '#939393', value: "<%=Reservation[4].c %>", orientation: 'v' });
         });
     </script>
 </body>

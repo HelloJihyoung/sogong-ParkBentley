@@ -48,6 +48,32 @@
     text-align: center;
     color: #483F37;  
 }
+.container .rightYellowBox h2 .goToLogin{
+    font-family:"Sans Pro";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 60px;
+    text-align: center;
+    color: #483F37;  
+    margin-top: 200px;
+    padding-top: -100px;
+    border: 1px solid #EAD08C;
+}
+.rightYellowBox button #goToLogin{
+    position: relative;
+    width: 180px;
+    height: 85px;
+    font-size: 30px;
+    /* margin: 20px; */
+    /* margin-top: 50px;
+    margin-right: 30px; */
+    vertical-align: middle;
+    text-align: center;
+    background: #EAD08C;
+    border-radius: 25px;
+    border: none;
+}
 
 #money{
     font-family:"Sans Pro";
@@ -69,9 +95,37 @@
     color: red;  
 }
 
-.rightYellowBox #payButton button{
+.rightYellowBox button{
     position: relative;
     width: 180px;
+    height: 85px;
+    font-size: 30px;
+    /* margin: 20px; */
+    /* margin-top: 50px;
+    margin-right: 30px; */
+    vertical-align: middle;
+    text-align: center;
+    background: #EAD08C;
+    border-radius: 25px;
+    border: none;
+}
+.rightYellowBox button #p{
+    position: relative;
+    width: 180px;
+    height: 85px;
+    font-size: 30px;
+    /* margin: 20px; */
+    /* margin-top: 50px;
+    margin-right: 30px; */
+    vertical-align: middle;
+    text-align: center;
+    background: #EAD08C;
+    border-radius: 25px;
+    border: none;
+}
+.rightYellowBox #buttonToLogin button{
+    position: relative;
+    width: 240px;
     height: 85px;
     font-size: 30px;
     /* margin: 20px; */
@@ -89,7 +143,17 @@
     font-family: "Red Rose";
     font-style: normal;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
+    line-height: 50px;
+    color: #483F37;
+}
+#buttonToLogin{
+    /* text-align: center;
+    vertical-align: middle; */
+    font-family: "Red Rose";
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
     line-height: 50px;
     color: #483F37;
 }

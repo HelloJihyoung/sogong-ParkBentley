@@ -1,9 +1,9 @@
 .text{
     position: absolute;
-    width: 515px;
+    width: 80%;
     height: 45px;
     top:350px;
-    margin-left: 300px;
+    margin-left: 20%;
 
     font-family: "Red Rose";
     font-style: normal;

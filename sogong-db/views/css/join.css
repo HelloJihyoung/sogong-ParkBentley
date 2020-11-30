@@ -1,11 +1,11 @@
-.loginmain{
+.joinmain{
     padding:50px
 }
-.loginmain .login .top li{
+.joinmain .join .top li{
     padding: 0 0 9px;
     list-style: square;
 }
-.loginmain .login .top{
+.joinmain .join .top{
     line-height: 30px;
     padding: 20px 20px 20px 20px;
     border: 3px solid #EAD08C;
@@ -13,7 +13,7 @@
     margin-left: 700px;
     margin-right: 700px;
 }
-.loginmain .login .top li label{
+.joinmain .join .top li label{
     display: inline-block;
     width: 80px;
     font-size: 15px;
@@ -22,15 +22,15 @@
     font-weight: bold;
     
 }
-.loginmain .login .top li input [type ="text"], 
-.loginmain .login .top li input [type ="password"]{
+.joinmain .join .top li input [type ="text"], 
+.joinmain .join .top li input [type ="password"]{
     width: 130px;
     height: 33px;
     list-style: none;
     padding:0;
-    border-color: #E7E7E7;
+    border-color: red;
 }
-.loginmain .login .top .joinbtn input [type ="submit"]{
+.joinmain .join .top .joinbtn input [type ="submit"]{
     display: block;
     width: 111px;
     height: 60px;
@@ -44,11 +44,11 @@
     border: 1px solid #EAD08C;
     border-radius: 10px;
 }
-.loginmain .login .top .li .save {
+.joinmain .join .top .li .save {
     padding: 0 0 0 59px;
     font-weight: normal;
 }
-.loginmain .login .top .li .save label{
+.joinmain .join .top .li .save label{
     width: auto;
     font-weight: normal;
 }

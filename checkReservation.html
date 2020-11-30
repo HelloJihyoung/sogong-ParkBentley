@@ -5,20 +5,21 @@
     <title>ParkBentley</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./css/main.css" />
-    <link rel="stylesheet" href="./css/join.css" />
+    <link rel="stylesheet" href="./css/checkReservation.css" />
+    <!-- <link rel="stylesheet" href="./css/calendar.css" /> -->
     <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
 </head>
 
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">
-        <li><a href="login.html">Login</a></li>
-        <li><a href="join.html">Join</a></li>
+        <li><a href="./login.html">Login</a></li>
+         <li><a href="./join.html">join</a></li>
     </nav>
     <nav class="navbar">
         <div class="logo">
 
-            <a href="/index.html">Park Bentley</a>
+            <a href="./index.html">Park Bentley</a>
 
         </div>
         <ul class="navbar_menu">
@@ -26,7 +27,7 @@
                 <ul>
                     <li><a href="./makeReservation.html">예약하기</a></li>
                     <li><a href="./changeReservation.html">예약변경</a></li>
-                    <li><a href="#">예약확인</a></li>
+                    <li><a href="./checkReservation.html">예약확인</a></li>
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -41,8 +42,6 @@
                     <li><a href="charge.html">잔액 충전</a></li>
                 </ul>
             </li>
-
-
             <li><a href="">사용 통계 조회</a>
                 <ul>
                     <li><a href="adminMonth.html">월별 사용통계</a></li>
@@ -51,26 +50,42 @@
             </li>
         </ul>
     </nav>
-    <div class="yellowBar">
-        <p class="yellowBarText">회 원 가 입</p>
-        <div class="loginmain">
-            <form action=" " method="post">
-                    <div class="login">
-                        <ul class = "top">
-                            <li><label for="input_id">아이디</label><input type="text" id="input_id"></li>
-                            <li><label for="input_pw">비밀번호</label><input type="text" id="input_pw"></li>
-                            <li><label for="input_checkPw">비밀번호 확인</label><input type="text" id="input_checkPw"></li>
-                            <li><label for="input_email">이메일</label><input type="text" id="input_email"></li>
-                            <li><label for="input_carNum">차량번호</label><input type="text" id="input_carNum"></li>
-                            <div class="joinbtn"><a href="#"></a><input type="submit" value = "확인"id="join_submit"></div>
-                        </ul>
-                    </div>
-            </form>
-        </div>
-    </div>
-    <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
     
+    <div class="yellowBar">
+        <p class="yellowBarText">예약 확인</p>
+    </div>
 
+    <!-- 기본 테마 끝 -->
+    <div class="text">이용 전 예약을 확인하세요.</div>
+    <div class="yellowRoundBox">
+        <table class="table">
+            <th>날짜</th>
+            <th>시간</th>
+            <th>예약번호</th>
+            <tr><!-- 첫번째 줄 시작 -->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+                <td>세번째 칸</td>
+            </tr><!-- 첫번째 줄 끝 -->
+            <tr><!-- 두번째 줄 시작 -->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+                <td>세번째 칸</td>
+            </tr><!-- 두번째 줄 끝 -->
+            <tr><!-- 두번째 줄 시작 -->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+                <td>세번째 칸</td>
+            </tr><!-- 두번째 줄 끝 -->
+            <tr><!-- 두번째 줄 시작 -->
+                <td>첫번째 칸</td>
+                <td>두번째 칸</td>
+                <td>세번째 칸</td>
+            </tr><!-- 두번째 줄 끝 -->
+            
+        </table>
+    </div>
+    
 </body>
 
 </html>

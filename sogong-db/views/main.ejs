@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/clock.css" />
     <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./css/parkingLot.css" />
     <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
 </head>
 
@@ -18,7 +19,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/join">Join</a></li>
         <% } else { %>
-            <li><a href="/main"><%=list[0].ID %>님 환영합니다!</a></li>
+            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
             <li><input type="hidden" value="root" name="logoutID" /></li>
             <li><button type="submit" id="button1" onclick="logout()" value="Logout">Logout</li>
         <% } %>
@@ -26,7 +27,7 @@
     <script>
         function logout() {
             alert("로그아웃됩니다.");
-            window.location.href = "./main";
+            window.location.href = "/main";
         }
     </script>
     <nav class="navbar">
@@ -40,6 +41,8 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
+
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -79,13 +82,31 @@
             <div class="left-top">
                 <div class = "Floor">주차장 현황 확인</div>
                 <a onClick="window.location.reload()" style="cursor: pointer;"><input type="image" src="./image/reload.png"class="reload-button"> </a>
-            </div>
-            <div class="left">
                 
+                <p  class="parking01" name="1"></p>
+                <p  class="parking02" name="2"></p>
+                <p  class="parking03" name="3"></p>
+                <p  class="parking04" name="4"></p>
+                <p  class="parking05" name="5"></p>
+
+                <p  class="parking11" name="6"></p>
+                <p  class="parking12" name="7"></p>
+                <p  class="parking13" name="8"></p>
+                <p  class="parking14" name="9"></p>
+                <p  class="parking15" name="10"></p>
                 
+              
             </div>
+            
+            <div class="left">                
+                <img src="./image/enter.png" id="enter" width="100">
+            </div>
+            <div style="position:absolute;">
+                <img src="./image/exit.png" id="exit" width="70" >
+            </div>    
+            
             <div class="bottom">
-                <img src="./image/information.png" width="1500px">
+                <img src="./image/information.png" id="info" width="1500px">
             </div>
         
     </div>

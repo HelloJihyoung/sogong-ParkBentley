@@ -5,6 +5,7 @@
     <title>ParkBentley</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/table.css" />
     <link rel="stylesheet" href="./css/changeReservation.css" />
 
     <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
@@ -22,7 +23,7 @@
     <nav class="navbar">
         <div class="logo">
 
-            <a href="/index">Park Bentley</a>
+            <a href="/main">Park Bentley</a>
 
         </div>
         <ul class="navbar_menu">
@@ -30,6 +31,8 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
+
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -68,6 +71,16 @@
     </div>
     <div class="yellowRoundBox">
         <table class="table">
+            <caption>product list
+                <form action="" id="setRows">
+                    <p>
+                        showing
+                        <input type="text" name="rowPerPage" value="5">
+                        item per page
+                    </p>
+                </form>
+        
+            </caption>
             <thead>
                 <tr>
                     <th>날짜</th>
@@ -77,23 +90,105 @@
                     <th>상세정보</th>
                 </tr>
             </thead>
-            <tbody> 
+            <tbody>
                 <% for(i = 0; i < list.length; i++) { %>
-                    <tr>
-                        <td><%=list[i].ReservationDate %></td>
-                        <td><%=list[i].StartTime %>~ <%=list[i].EndTime %></td>
-                        <td><%=list[i].ReservationNum %></td>
-                        <td><%=list[i].UseStatus %></td>
-                        <td><button type="button" onclick='location.href="/checkMyRecord/<%=list[i].ReservationNum %>"'>확인하기</button></td>
-                    </tr>
-                    <% } %>
-               
-        </tbody>
+                <tr>
+                    <td><%=list[i].ReservationDate %></td>
+                    <td><%=list[i].StartTime %>~ <%=list[i].EndTime %></td>
+                    <td><%=list[i].ReservationNum %></td>
+                    <td><%=list[i].UseStatus %></td>
+                    <td><button type="button"
+                            onclick='location.href="/checkMyRecord/<%=list[i].ReservationNum %>"'>확인하기</button></td>
+                </tr>
+                <% } %>
+
+            </tbody>
+            <ul class="w3-pagination">
+                <li><a href="#" class="w3-hover-purple">&laquo;</a></li>
+                <li><a href="#" class="w3-hover-green">1</a></li>
+                <li><a href="#" class="w3-hover-red">2</a></li>
+                <li><a href="#" class="w3-hover-blue">3</a></li>
+                <li><a href="#" class="w3-hover-black">4</a></li>
+                <li><a href="#" class="w3-hover-orange">&raquo;</a></li>
+              </ul>
         </table>
         <div class="js-pickDate" id="date">
 
 
         </div>
+        <script>
+            var $setRows = $('#setRows');
+
+            $setRows.submit(function (e) {
+                e.preventDefault();
+                var rowPerPage = $('[name="rowPerPage"]').val() * 1;// 1 을  곱하여 문자열을 숫자형로 변환
+
+                //		console.log(typeof rowPerPage);
+
+                var zeroWarning = 'Sorry, but we cat\'t display "0" rows page. + \nPlease try again.'
+                if (!rowPerPage) {
+                    alert(zeroWarning);
+                    return;
+                }
+                $('#nav').remove();
+                var $products = $('#products');
+
+                $products.after('<div id="nav">');
+
+
+                var $tr = $($products).find('tbody tr');
+                var rowTotals = $tr.length;
+                //	console.log(rowTotals);
+
+                var pageTotal = Math.ceil(rowTotals / rowPerPage);
+                var i = 0;
+
+                for (; i < pageTotal; i++) {
+                    $('<a href="#"></a>')
+                        .attr('rel', i)
+                        .html(i + 1)
+                        .appendTo('#nav');
+                }
+
+                $tr.addClass('off-screen')
+                    .slice(0, rowPerPage)
+                    .removeClass('off-screen');
+
+                var $pagingLink = $('#nav a');
+                $pagingLink.on('click', function (evt) {
+                    evt.preventDefault();
+                    var $this = $(this);
+                    if ($this.hasClass('active')) {
+                        return;
+                    }
+                    $pagingLink.removeClass('active');
+                    $this.addClass('active');
+
+                    // 0 => 0(0*4), 4(0*4+4)
+                    // 1 => 4(1*4), 8(1*4+4)
+                    // 2 => 8(2*4), 12(2*4+4)
+                    // 시작 행 = 페이지 번호 * 페이지당 행수
+                    // 끝 행 = 시작 행 + 페이지당 행수
+
+                    var currPage = $this.attr('rel');
+                    var startItem = currPage * rowPerPage;
+                    var endItem = startItem + rowPerPage;
+
+                    $tr.css('opacity', '0.0')
+                        .addClass('off-screen')
+                        .slice(startItem, endItem)
+                        .removeClass('off-screen')
+                        .animate({ opacity: 1 }, 300);
+
+                });
+
+                $pagingLink.filter(':first').addClass('active');
+
+            });
+
+
+            $setRows.submit();
+        </script>
         <script src="./content/record/pickDate.js"></script>
         <script src="./content/record/pickLastDate.js"></script>
         <script src="./content/record/getDate.js"></script>

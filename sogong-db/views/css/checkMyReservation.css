@@ -35,3 +35,13 @@
     border-bottom: 1px solid #444444;
     font-size: 20px;
 }
+table {
+    width: 100%;
+    border-top: 1px solid #444444;
+    border-collapse: collapse;
+  }
+  td {
+    border-bottom: 1px solid #444444;
+    
+  }
+.line{border-bottom:1px solid #483F37;}

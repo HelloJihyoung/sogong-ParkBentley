@@ -16,7 +16,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/join">Join</a></li>
         <% } else { %>
-            <li><a href="/main"><%=list[0].ID %>님 환영합니다!</a></li>
+            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
         <% } %>
     </nav>
     <nav class="navbar">
@@ -30,6 +30,8 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
+
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -65,7 +67,7 @@
                             <li><label>이메일</label><input type="text" name="input_email"></li>
                             <li><label>차량종류</label><input type="text" name="input_carType"></li>
                             <li><label>차량번호</label><input type="text" name="input_carNum"></li>
-                            <div class="joinbtn"><a href="#"></a><input type="submit" value = "확인"name="join_submit"></div>
+                            <div class="joinbtn"><input type="submit" value = "확인"name="join_submit"></div>
                         </ul>
                     </div>
             </form>

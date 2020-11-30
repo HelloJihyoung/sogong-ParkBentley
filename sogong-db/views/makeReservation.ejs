@@ -21,7 +21,7 @@
     <nav class="navbar">
         <div class="logo">
 
-            <a href="/index">Park Bentley</a>
+            <a href="/main">Park Bentley</a>
 
         </div>
         <ul class="navbar_menu">
@@ -29,6 +29,8 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
+
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -99,7 +101,7 @@
     </div>
     <div id="nextYellowButton">
         <!-- 입력한 값이랑 같이 넘겨주기 -->
-        <button id="buttonText" onclick="location.href='/confirmReservation'">예약 확인 >> </button>
+        <button id="buttonText" onclick='location.href="/confirmReservation"'>예약 확인 >> </button>
     </div>
 
     <script src="./content/service/calendar.js"></script>

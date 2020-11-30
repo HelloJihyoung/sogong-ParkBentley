@@ -2,18 +2,39 @@
 <html>
     <head>
         <title>예약 완료 팝업창</title>
+        <style>
+            .text{
+                position: absolute;
+                width: 400px;
+                height: 100px;
+                left: 50%;
+                margin-top: 50px;
+                margin-left: -200px;
+                text-align: center;
+                font-size: 30px;
+                font-weight: bold;
+            }
+            .blueButton{
+                position: absolute;
+                width: 114px;
+                height: 50px;
+                margin-top: 10px;
+                left: 50%;
+                margin-left: -60px;
+                color: white;
+                background: #5887FF;
+                border: 3px solid #000000;
+                border-radius: 58px;
+            }
+        </style>
     </head>
     <body>
-        <div style="vertical-align: middle; font-family: 'Roboto'; text-align: center">
-            <h1>예약 변경이 완료되었습니다.</h1>
-        </div>
-        <div style="text-align: center; color: white; border: none;">
-            <input type="button" value="확 인(처음으로)" onclick="moveClose()" />
-        </div>
+        <div class="text">예약이 완료되었습니다.<div>
+        <input type="button" class="blueButton" value="확 인(처음으로)" onclick="moveClose()" />
     </body>
     <script>
         function moveClose(){
-            opener.location.href="index.html";
+            opener.location.href="/main";
             self.close();
         }
     </script>

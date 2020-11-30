@@ -1,0 +1,137 @@
+.parking01{
+    z-index: 1;
+    position: absolute;
+width: 99px;
+height: 52px;
+left: 433px;
+top: 382px;
+
+background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+}
+
+.parking02{
+    z-index: 1;
+    position: absolute;
+width: 99px;
+height: 52px;
+left: 514px;
+top: 382px;
+
+background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+
+}
+
+.parking03{
+    z-index: 1;
+    position: absolute;
+width: 99px;
+height: 52px;
+left: 595px;
+top: 382px;
+
+background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+
+}
+.parking04{
+    z-index: 1;
+    position: absolute;
+width: 99px;
+height: 52px;
+left: 676px;
+top: 382px;
+
+background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+}
+
+.parking05{
+    z-index: 1;
+    position: absolute;
+width: 99px;
+height: 52px;
+left: 757px;
+top: 382px;
+
+background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+}
+
+
+.parking11{
+    z-index: 1;
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 433px;
+    top: 544px;
+    
+    background: #C4C4C4;
+    border-radius: 10px;
+    transform: rotate(-90deg);
+}
+
+.parking12{
+    z-index: 1;
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 514px;
+    top: 544px;
+    background: #C4C4C4;
+border-radius: 10px;
+transform: rotate(-90deg);
+}
+
+.parking13{
+    z-index: 1;
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 595px;
+    top: 544px;
+    background: #C4C4C4;
+    border-radius: 10px;
+    transform: rotate(-90deg);
+}
+
+.parking14{
+    z-index: 1;
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 676px;
+    top: 544px;
+    background: #C4C4C4;
+    border-radius: 10px;
+    transform: rotate(-90deg);
+}
+
+.parking15{
+    z-index: 1;
+    position: absolute;
+    width: 99px;
+    height: 52px;
+    left: 757px;
+    top: 544px;
+    background: #C4C4C4;
+    border-radius: 10px;
+    transform: rotate(-90deg);
+}
+.enter{
+    z-index: 1;
+    position: absolute;
+}
+.exit{
+    padding-left: 600px;
+}
+.info{
+    margin-top: 100px;
+}

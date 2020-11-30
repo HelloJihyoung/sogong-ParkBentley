@@ -53,7 +53,7 @@ License: http://www.egrappler.com/license.
 
                     progressContainer.addClass('jqbar vertical').append('<span class="bar-percent"></span><span class="bar-level-wrapper"><span class="bar-level"></span></span><span class="bar-label"></span>');
 
-                    var progressLabel = progressContainer.find('.bar-label').html(settings.label);
+                    var progressLabel = progressContainer.find('.bar-label').html("3월");
                     //여기 html() 에다가 monthSelected 넣으면 select 한 달이 출력되긴함
                     //내 생각은 이거에다가 -1 하고 + 1 해서 label에 넣어주는것을 하는것...!
 

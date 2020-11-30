@@ -15,9 +15,10 @@
 .yellowRoundBox{
     position: absolute;
     width: 1220px;
-    height: 450px;
+    height: 366px;
     left: 50%;
-    margin-top: 10px;
+    top: 400px;
+    margin-top: 50px;
     margin-left: -610px;
 
     background: #FFFFFF;
@@ -35,13 +36,3 @@
     border-bottom: 1px solid #444444;
     font-size: 20px;
 }
-table {
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
-  }
-  td {
-    border-bottom: 1px solid #444444;
-    
-  }
-        .line{border-bottom:1px solid #483F37;}
