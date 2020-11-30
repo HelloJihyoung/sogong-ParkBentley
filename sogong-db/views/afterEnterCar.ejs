@@ -31,6 +31,7 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -62,18 +63,17 @@
     </div>
 
     <!-- 기본 테마 끝 -->
-
-    <% for(i = 0; i < list.length; i++) { %>
+    
         <div class="yellowRoundBox">
-            <div class="text"><%=list[i].ID %></div>
-            <div class="text"><%=list[i].ReservationNum %></div>
-            <div class="text"><%=list[i].StartTime %> ~ <%=list[i].EndTime %></div>
-            <div class="text"><%=list[i].R_StartTime %></div>
-            <div class="text"><%=list[i].EndTime %></div>
+            <div class="text"><%=results.ID %>님</div>
+            <div class="text">예약 번호 : <%=results.ReservationNum %></div>
+            <div class="text">예약 시간 : <%=results.StartTime %> ~ <%=results.EndTime %></div>
+            <!--<div class="text">입차 시간 : <%=results.R_StartTime %></div>-->
+            <div class="text">출차 예정 시간 : <%=results.EndTime %></div>
             <div class="text">입차 완료. 차단기가 올라갑니다.</div>
             
         </div>
-        <% } %>
+        
     <!-- <div class="yellowRoundBox">
         <div class="text">사용자 이름</div>
         <div class="text">예약 번호</div>

@@ -33,6 +33,7 @@
                 <ul>
                     <li><a href="/makeReservation">예약하기</a></li>
                     <li><a href="/changeReservation">예약변경</a></li>
+                    <li><a href="/checkReservation">예약확인</a></li>
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
@@ -71,7 +72,7 @@
             <th>시간</th>
             <th>예약번호</th>
             <th>변경</th>
-            <% var a; %>
+            
             <%if ( list[0].ID == "root" ) { %> <!--로그인 안했을 경우-->
                 <tr><!-- 첫번째 줄 시작 -->
                     <td>로그인을</td>
@@ -80,41 +81,44 @@
                     <td>이용해주세요!</td>
                 </tr><!-- 첫번째 줄 끝 -->
             <% } else { %> <!--로그인 했을 경우-->
+                
                 <% for(i = 0; i < list.length; i++) { %>
+                    <% var a = i; %>
+                    <% console.log("I의 값은 : "+i); %>
+                    <input type="hidden" value='<%list[a].ReservationNum%>' name="breservationNum" />
+                    
                     <tr><!-- 첫번째 줄 시작 -->
                         <td><%=list[i].ReservationDate %></td>
                         <td><%=list[i].StartTime %> ~ <%=list[i].EndTime %></td>
                         <td><%=list[i].ReservationNum %></td>
-                        
                         <% if ( list[i].ReservationDate > todayDate ) { %>
-                            <td><button type="submit" onclick="selectRes()">예약 변경</button></td>
-                            <% a = i; %>
-                            <input type="hidden" value=<%=list[a].ReservationNum %> name="breservationNum" />
+                            <td><button type="submit" onclick="selectRes()">예약 변경1</button></td>
                         <% } else if ( list[i].ReservationDate == todayDate ) { %>
                             <% if ( list[i].StartTime.getTime() >= todayTime ) { %>
-                                <td><button type="submit" onclick="selectRes()">예약 변경</button></td>
-                                <% a = i; %>
-                                <input type="hidden" value=<%=list[a].ReservationNum %> name="breservationNum" />
+                                <td><button type="submit" onclick="selectRes()">예약 변경2</button></td>
+                                
                             <% } else { %>
                                 <td><button type="button" onclick="location.href='/changeReservation'">변경 불가</button></td>
                             <% } %>
                         <% } else { %>
                             <td><button type="button" onclick="location.href='/changeReservation'">변경 불가</button></td>
                         <% } %>
+                        
                     </tr><!-- 첫번째 줄 끝 -->
-                    <script>
-                        function selectRes() {
-                            alert("예약 변경 선택");
-                            a = i;
-                            window.location.href = "/afterChangeReservation";
-                        }
-                    </script>
+                    
                 <% } %>
             <% } %>
         </table>
     </div>
-    
+    </form>
     <script>
+        function selectRes() {
+            alert("예약을 변경합니다.");
+            var a = i;
+            console.log("I의 값은 : "+i);
+            <input type="hidden" value='list[a].ReservationNum' name="breservationNum" />
+            window.location.href = "/changeReservation";
+        }
         function openPopup(){
  
             var _width = '400';
@@ -124,9 +128,9 @@
             var _left = Math.ceil(( window.screen.width - _width )/2);
             var _top = Math.ceil(( window.screen.height - _height )/2); 
 
-            window.open('./completeReservation.html', 'popup-test', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
+            window.open('./completeReservation.ejs', 'popup-test', 'width='+ _width +', height='+ _height +', left=' + _left + ', top='+ _top );
         }
     </script>
 </body>
-</form>
+
 </html>

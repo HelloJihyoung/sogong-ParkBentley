@@ -3,6 +3,9 @@ var app = express();
 var db_config = require(__dirname + '/index.js');
 var conn = db_config.init();
 var bodyParser = require('body-parser');
+var moment = require('moment');
+//var moment = require('moment-timezone');
+
 
 db_config.connect(conn);
 
@@ -151,7 +154,7 @@ app.get('/login', function (req, res) {
     conn.query(sql, [userID], function(err,result,rows,fields) {
         if(err) console.log('query is not excuted. insert fail...\n' + err);
         else {
-            res.render('login',{
+            res.render('login.ejs',{
                 results: result,
                 list : rows
             });
@@ -165,6 +168,8 @@ app.post('/login', function (req, res) {
 
     var id = body.ID;
     var pw = body.PASSWORD;
+
+    var userID = loginMemberID;
 
     console.log("입력한 ID : "+id);
     console.log("입력한 PW : "+pw);
@@ -256,7 +261,6 @@ app.get('/afterEnterCar', function (req, res) {
     // console.log(carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg'));
 
     const carNum = '152가 3018';
-    const resNum = "55555";
     // sql = 'SELECT ReservationNum FROM reservation WHERE CarNum = ?';
     // conn.query(sql, [carNum], function(err, results, fields) {
     //     if(err) console.log('query is not excuted. select fail...\n' + err);
@@ -266,10 +270,71 @@ app.get('/afterEnterCar', function (req, res) {
     //     }
     // });
     // var carNum = carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg');
-    var sql1 = 'SELECT * FROM Reservation,cartransaction WHERE CarNum=? AND cartransaction.ReservationNum=?';
-    conn.query(sql1, [carNum, resNum], function (err, rows, fields) {
+
+    // var sql1 = 'SELECT * FROM Reservation,cartransaction WHERE CarNum=? AND cartransaction.ReservationNum=?';
+    // conn.query(sql1, [carNum, resNum], function (err, rows, fields) {
+    //     if(err) console.log('query is not excuted. select fail...\n' + err);
+    //     else res.render('afterEnterCar.ejs', {list : rows});
+    // });
+
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    console.log("현재 ID : "+userID);
+
+    var sql1 = 'SELECT * FROM user WHERE ID=?';
+    conn.query(sql1, [userID], function(err,results, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
-        else res.render('afterEnterCar.ejs', {list : rows});
+        if(!results[0]) { // 값이 없을 때
+            console.log("예약 내역이 없습니다.");
+            res.render('afterEnterCar.ejs',{
+                list : rows
+            });
+        }
+        else { // 차번호 && 예약 완료가 있을 때
+            var now = new Date(); 
+            var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            var todayTime = todayDate.getTime();
+            console.log("RESULTS" + results[0].ReservationNum);
+            var sql2 = 'SELECT * FROM reservation WHERE ReservationDate = ? AND CarNum = ? AND UseStatus="예약완료"';
+            console.log("오늘의 Date : "+ todayDate);
+            conn.query(sql2, [todayDate, carNum], function(err,results,rows, fields) {
+                if(err) console.log('query is not excuted. select fail...\n' + err);
+                if(!results[0]) { // 값이 없을 때
+                    console.log("오늘의 예약 내역이 없습니다.");
+                    res.render('afterEnterCar.ejs',{
+                        results : results,
+                        list : rows
+                    });
+                }
+                else { // 예약이 오늘 & 차번호일치 & 예약완료
+                    console.log("RESULTS" + results[0].ReservationNum);
+                    var ReservationNum = results[0].ReservationNum;
+                    var moment = require('moment');
+                    require('moment-timezone');
+                    moment.tz.setDefault("Asia/Seoul");
+                    var R_StartTime = moment().format('HH:MM:SS');
+                    console.log("R_StartTime : "+R_StartTime);
+                    var sql3 = 'INSERT INTO cartransaction (ReservationNum,R_StartTime) VALUES(?,?)';
+                    conn.query(sql3, [ReservationNum,R_StartTime], function (err, rows, results) {
+                        if(err) console.log('query is not excuted. select fail...\n' + err);
+                        else {
+                            res.render('afterEnterCar.ejs',{
+                                results: results[0],
+                                list : rows
+                            });
+                            console.log("last : " + results[0].R_StartTime);
+                        }
+                    });
+                    res.render('afterEnterCar.ejs',{
+                        results: results[0],
+                        list : rows
+                    });
+                }
+            });
+        }
     });
 });
 
@@ -494,9 +559,9 @@ app.get('/changeReservation', function (req, res) {
         else {
             res.render('changeReservation.ejs', 
             {list : rows, todayDate:todayDate, todayTime:todayTime});
-            console.log(todayDate);
-            console.log(todayTime);
-            console.log(rows);
+            //console.log(todayDate);
+            //console.log(todayTime);
+            //console.log(rows);
         }
     });
 });
@@ -542,8 +607,9 @@ app.post('/changeReservation' , function (req, res) {
         conn.query(sql2, [rmReservationNum], function (err, rows, results) {
             if(err) console.log('query is not excuted. select fail...\n' + err);
             else {
-                res.render('changeReservation.ejs', { list : rows});
+                res.render('changeReservation.ejs', { list : rows , rmReservationNum : rmReservationNum });
                 console.log(rows);
+                console.rmReservationNum;
                 console.log("삭제 완료");
             }
         });
