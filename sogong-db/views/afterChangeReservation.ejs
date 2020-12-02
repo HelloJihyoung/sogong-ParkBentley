@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<form action="/afterChangeReservation" method="POST">
+
 <head>
     <title>ParkBentley</title>
     <meta charset="utf-8" />
@@ -15,12 +15,8 @@
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">
-        <%if ( list[0].ID == "root" ) { %>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/join">Join</a></li>
-        <% } else { %>
-            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
-        <% } %>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/join">Join</a></li>
     </nav>
     <nav class="navbar">
         <div class="logo">
@@ -49,20 +45,18 @@
                     <li><a href="/charge">잔액 충전</a></li>
                 </ul>
             </li>
-            <%if ( list[0].ID == "admin" ) { %>
-                <li><a href="">사용 통계 조회</a>
-                    <ul>
-                        <li><a href="/adminMonth">월별 사용통계</a></li>
-                        <li><a href="/adminDay">일별 사용통계</a></li>
-                    </ul>
-                </li>
-            <% } else { %>
-            <% } %>
+            <li><a href="">사용 통계 조회</a>
+            <!--관리자 권한일때만 접근 가능하도록 설계-->
+                <ul>
+                    <li><a href="/adminMonth">월별 사용통계</a></li>
+                    <li><a href="/adminDay">일별 사용통계</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
     <!-- 기본 테마 끝 -->
     <div class="yellowBar">
-        <p class="yellowBarText">예약 하기</p>
+        <p class="yellowBarText">예약 변경</p>
     </div>
     <!-- <div class="roundYellowBox">
     </div> -->
@@ -97,82 +91,17 @@
           <div class="clicked-date">
               <div class="sel-date">
                 <div class="cal-all"></div>
-                <div class="cal-date"></div>
-                <div class="cal-day"></div>
+                <div class="cal-date" name = "caldate"></div>
+                <div class="cal-day" name="calday"></div>
               </div>
-            <div class="time-block">
-                <!-- 0시 -->
-                <label for="cb0"><div class="time">0<div class="timeBlock"></div></div></label>
-                <label for="cb1"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb2"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb3"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb4"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb5"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                
-                <!-- 6시 -->
-                <label for="cb6"><div class="time">6<div class="timeBlock"></div></div></label>
-                <label for="cb7"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb8"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb9"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb10"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb11"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-            </div>
-            <div class="time-block">
-                <!-- 12시 -->
-                <label for="cb12"><div class="time">12<div class="timeBlock"></div></div></label>
-                <label for="cb13"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb14"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb15"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb16"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb17"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                
-                <!-- 24시 -->
-                <label for="cb18"><div class="time">18<div class="timeBlock"></div></div></label>
-                <label for="cb19"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb20"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb21"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb22"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-                <label for="cb23"><div class="time">&nbsp;<div class="timeBlock"></div></div></label>
-            </div>
-            <form name="form1">
-                <input type="checkbox" id="cb0" name="cb0" value="00:00:00" style="display: none;">
-                <input type="checkbox" id="cb1" name="cb1" value="01:00:00" style="display: none;">
-                <input type="checkbox" id="cb2" name="cb2" value="02:00:00" style="display: none;">
-                <input type="checkbox" id="cb3" name="cb3" value="03:00:00" style="display: none;">
-                <input type="checkbox" id="cb4" name="cb4" value="04:00:00" style="display: none;">
-                <input type="checkbox" id="cb5" name="cb5" value="05:00:00" style="display: none;"> 
-
-                <input type="checkbox" id="cb6" name="cb6" value="06:00:00" style="display: none;">
-                <input type="checkbox" id="cb7" name="cb7" value="07:00:00" style="display: none;">
-                <input type="checkbox" id="cb8" name="cb8" value="08:00:00" style="display: none;">
-                <input type="checkbox" id="cb9" name="cb9" value="09:00:00" style="display: none;">
-                <input type="checkbox" id="cb10" name="cb10" value="10:00:00" style="display: none;">
-                <input type="checkbox" id="cb11" name="cb11" value="11:00:00" style="display: none;">
-
-                <input type="checkbox" id="cb12" name="cb12" value="12:00:00" style="display: none;">
-                <input type="checkbox" id="cb13" name="cb13" value="13:00:00" style="display: none;">
-                <input type="checkbox" id="cb14" name="cb14" value="14:00:00" style="display: none;">
-                <input type="checkbox" id="cb15" name="cb15" value="15:00:00" style="display: none;">
-                <input type="checkbox" id="cb16" name="cb16" value="16:00:00" style="display: none;">
-                <input type="checkbox" id="cb17" name="cb17" value="17:00:00" style="display: none;">
-
-                <input type="checkbox" id="cb18" name="cb18" value="18:00:00" style="display: none;">
-                <input type="checkbox" id="cb19" name="cb19" value="19:00:00" style="display: none;">
-                <input type="checkbox" id="cb20" name="cb20" value="20:00:00" style="display: none;">
-                <input type="checkbox" id="cb21" name="cb21" value="21:00:00" style="display: none;">
-                <input type="checkbox" id="cb22" name="cb22" value="22:00:00" style="display: none;">
-                <input type="checkbox" id="cb23" name="cb23" value="23:00:00" style="display: none;">
-
-                <input type="button" value="확인" onclick="Check(this.form);">
-           </form>
-            
         </div>
+        <iframe frameborder="0" width="750" height="320" src="./calendar"></iframe>
         <!-- // .my-calendar -->
         
     </div>
     <div id="nextYellowButton">
         <!-- 입력한 값이랑 같이 넘겨주기 -->
-        <button id="buttonText" onclick="location.href='/confirmReservation'">변경 완료 >> </button>
+        <button id="buttonText" onclick='location.href="/confirmReservation"'>예약 확인 >> </button>
     </div>
 
     <script src="./content/service/calendar.js"></script>
@@ -180,5 +109,5 @@
 
 
 </body>
-</form>
+
 </html>

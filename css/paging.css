@@ -1,0 +1,40 @@
+ul .paging{
+  list-style: none;
+  text-align:center;
+}
+li #page{
+   display:inline;
+   list-style-type: none;
+  vertical-align:middle;
+  list-style: none;
+  float:left;
+}
+.yellowRoundBox ul li #pagingA a {
+  display:-moz-inline-stack;   /*FF2*/
+  display:inline-block;
+  vertical-align:top;
+  padding:4px;
+  margin-right:3px;
+  width:15px !important;
+  list-style: none;
+  color:red;
+  font:bold 12px tahoma;
+   border:1px solid #eee;
+   list-style-type: none;
+  text-align:center;
+  text-decoration:none;
+  width /**/:26px;   /*IE 5.5*/
+
+}
+ul li a.now {
+  color:#fff;
+  list-style: none;
+  background-color:#EAD08C;
+  border:1px solid #EAD08C;
+}
+ul li a:hover, ul li a:focus {
+  color:#fff;
+  border:1px solid #EAD08C;
+  list-style: none;
+  background-color:#EAD08C;
+}

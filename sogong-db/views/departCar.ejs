@@ -80,7 +80,7 @@
 
             <input type="file" id="ex_file" style="display: none;" accept="image/*" onchange="setThumbnail(event);"/> 
             <div id="enterButton">
-                <button type="submit" id="buttonText" onclick="location.href='/afterDepartCar'">출차하기</button>
+                <button type="submit" id="buttonText" onclick=GoafterDepart()>출차하기</button>
             </div>
           
         </form>
@@ -88,6 +88,9 @@
     </div>
     
     <script>
+        function GoafterDepart() {
+            window.location.href = "./afterDepartCar";
+        }
         function setThumbnail(event) { 
         var reader = new FileReader(); 
         reader.onload = function(event) { 

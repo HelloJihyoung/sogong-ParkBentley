@@ -7,6 +7,7 @@
         <meta charset="utf-8" />
         <link rel="stylesheet" href="./css/main.css" />
         <link rel="stylesheet" href="./css/changeReservation.css" />
+        <link rel="stylesheet" href="./css/paging.css" />
         <!-- <link rel="stylesheet" href="./css/calendar.css" /> -->
 
         <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
@@ -67,35 +68,22 @@
         </div>
     
         <!-- 기본 테마 끝 -->
-        <div class="text">이용 전 예약을 확인하세요.</div>
+        <div class="text">이용 전 예약을 확인하세요. 이용 완료된 예약은 개인 기록 조회에서 확인해주세요.</div>
         <div class="yellowRoundBox">
             <table class="table">
                 <th>날짜</th>
                 <th>시간</th>
                 <th>예약번호</th>
+                <% for(i = 0; i < results.length; i++) { %>
                 <tr><!-- 첫번째 줄 시작 -->
-                    <td>첫번째 칸</td>
-                    <td>두번째 칸</td>
-                    <td>세번째 칸</td>
+                    <td><%=results[i].ReservationDate %></td>
+                    <td><%=results[i].StartTime %> ~ <%=results[i].EndTime %></td>
+                    <td><%=results[i].ReservationNum %></td>
                 </tr><!-- 첫번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td>첫번째 칸</td>
-                    <td>두번째 칸</td>
-                    <td>세번째 칸</td>
-                </tr><!-- 두번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td>첫번째 칸</td>
-                    <td>두번째 칸</td>
-                    <td>세번째 칸</td>
-                </tr><!-- 두번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td>첫번째 칸</td>
-                    <td>두번째 칸</td>
-                    <td>세번째 칸</td>
-                </tr><!-- 두번째 줄 끝 -->
-                
+                <% } %>
             </table>
         </div>
+      
         
     </body>
     

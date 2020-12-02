@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+<form action="/confirmReservation" method="POST">
 <head>
     <title>ParkBentley</title>
     <meta charset="utf-8" />
@@ -14,8 +14,12 @@
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">        
-        <li><a href="/login">Login</a></li>
-        <li><a href="/join">join</a></li>
+        <%if ( list[0].ID == "root" ) { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+        <% } else { %>
+            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
+        <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
@@ -44,13 +48,15 @@
                     <li><a href="/charge">잔액 충전</a></li>
                 </ul>
             </li>
-            <li><a href="">사용 통계 조회</a>
-            <!--관리자 권한일때만 접근 가능하도록 설계-->
-                <ul>
-                    <li><a href="/adminMonth">월별 사용통계</a></li>
-                    <li><a href="/adminDay">일별 사용통계</a></li>
-                </ul>
-            </li>
+            <%if ( list[0].ID == "admin" ) { %>
+                <li><a href="">사용 통계 조회</a>
+                    <ul>
+                        <li><a href="/adminMonth">월별 사용통계</a></li>
+                        <li><a href="/adminDay">일별 사용통계</a></li>
+                    </ul>
+                </li>
+            <% } else { %>
+            <% } %>
         </ul>
     </nav>
     <!-- 기본 테마 끝 -->
@@ -60,19 +66,19 @@
 
     <div class="roundYellowBox">
         <div class="text" id='reservationDate'>
-            <p>예약 날짜</p>
+            <p><%=list[0].ReservationDate %></p>
         </div>
         <div class="text" id='reservationTime'>
-            <p>예약 시간</p>
+            <p><%=list[0].StartTime %> ~ <%=list[0].EndTime %></p>
         </div>
         <div class="text" id='reservationNum'>
-            <p>예약 번호</p>
+            <p><%=list[0].ReservationNum %></p>
         </div>
         <div class="text" id='carNum'>
-            <p>차 번호</p>
+            <p><%=list[0].CarNum %></p>
         </div>
         <div class="text" id='reservationPrice'>
-            <p>총 금액</p>
+            <p><%=list[0].Price %></p>
         </div>
         <div class="warnningText">
             <h3>※주의※</h3>
@@ -88,5 +94,5 @@
 
 
 </body>
-
+</form>
 </html>

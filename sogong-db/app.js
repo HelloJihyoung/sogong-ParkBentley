@@ -4,6 +4,9 @@ var db_config = require(__dirname + '/index.js');
 var conn = db_config.init();
 var bodyParser = require('body-parser');
 var moment = require('moment');
+var Tesseract = require('tesseract.js')
+var request = require('request');
+var fs = require('fs');
 //var moment = require('moment-timezone');
 
 
@@ -20,7 +23,8 @@ app.get('/', function (req, res) {
     res.send('ROOT');
 });
 
-var loginMemberID = "root"
+var loginMemberID = "root";
+var memberCarNum = "";
 
 
 /* ------------------------------------메인화면 --------------------------------*/
@@ -231,36 +235,166 @@ app.post('/enterCar', function (req, res) {
     var body = req.body;
     console.log(body);
 
-    var carNum = require('./ocr');
-    //console.log(carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg'));
 
-    carNum = '152가 3018';
+    console.log("enterCar post");
+    // var carNumber = require('./ocr.js');
+    
+    // var carNum = carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg');
 
-    console.log("carNum : "+carNum);
-    var sql1 = 'SELECT * FROM reservation WHERE CarNum = ?';
-    console.log(sql1);
-    conn.query(sql1, [carNum], function(err,results) {
-        if(err) {
-            console.log('query is not excuted. insert fail...\n' + err);
-        }
-        if(!results[0]) {
-            res.redirect('/enterCar_ReserNum');
-        }
-        else { 
-            console.log("예약이 되어있습니다. 차단기가 올라갑니다.");
-            //res.send('<script type="text/javascript">alert("예약이 되어있습니다. 차단기가 올라갑니다.");window.location="/afterEnterCar";</script>');
-            res.redirect('/afterEnterCar');
-        }
-    });
+    // console.log("carnum:"+carNum);
+    // var carNumber = require('')
+    // var carNum = require('./ocr');
+    // console.log(carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg'));
+
+    //carNum = '152가 3018';
+
+    var filename = 'C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg';
+    var ocr = function(filename) {
+        var carNum = "";
+        Tesseract.recognize(filename, 'kor')
+        //.progress(function  (p) { console.log('progress', p)  })
+        .catch(err => console.error(err))
+        .then(function(result){ 
+            carNum = result.data.text;
+            carNum = result.data.text.toString();
+            console.log(result.data.text);
+            console.log("Text :" + carNum);
+            console.log("Text"+carNum);
+            carNum = carNum.trim();
+
+            var userID = loginMemberID;
+            memberCarNum = carNum;
+
+            console.log("현재 ID : "+userID);
+
+            var sql2 = 'SELECT * FROM user WHERE ID=?';
+
+            console.log(sql2);
+    
+            conn.query(sql2, [userID], function(err,result, rows,fields,param) {
+                if(err) console.log('query is not excuted. insert fail...\n' + err);
+                else {
+                    var sql1 = 'SELECT * FROM reservation WHERE CarNum = ?';
+                    console.log(sql1);
+                    console.log("last carNum : "+carNum);
+                    conn.query(sql1, [carNum], function(err,results) {
+                    if(err) {
+                        console.log('query is not excuted. insert fail...\n' + err);
+                    }
+                    if(!results[0]) {
+                        console.log("차 번호로 예약된 게 없습니다.");
+                        res.redirect('/enterCar_ReserNum');
+                    }
+                    else { 
+                        console.log("차 번호로 예약된 내역이 있습니다.");
+                        res.send('<script type="text/javascript">alert("인식된 차 번호로 예약 내역이 있습니다.");window.location="/afterEnterCar";</script>');
+                        //차번호 확인용 팝업창으로 바로 이동
+                    
+                    }
+                });
+                }
+            });
+
+        })
+    }
+
+    ocr(filename);
+
+    // var sql1 = 'SELECT * FROM user WHERE ID = ?';
+    // console.log(sql1);
+    // conn.query(sql1, [userID], function(err,results) {
+    //     if(err) {
+    //         console.log('query is not excuted. insert fail...\n' + err);
+    //     }
+    //     else { 
+    //         //console.log("예약이 되어있습니다. 차단기가 올라갑니다.");
+    //         //res.send('<script type="text/javascript">alert("예약이 되어있습니다. 차단기가 올라갑니다.");window.location="/afterEnterCar";</script>');
+    //         res.redirect('/checkCarNumber');
+    //     }
+    // }
 });
 /* ---------------------------------------------------------------------------*/
 
+/* -------------------------------------인식된 차 번호 확인--------------------------------------*/
+// app.get('/checkCarNumber', function (req, res) {
+//     var userID = loginMemberID;
+//     var filename = 'C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg';
+//     var ocr = function(filename) {
+//         Tesseract.recognize(filename, 'kor')
+//         //.progress(function  (p) { console.log('progress', p)  })
+//         .catch(err => console.error(err))
+//         .then(function(result){ 
+//             carNum = result.data.text;
+//             carNum = result.data.text.toString();
+//             console.log(result.data.text);
+//             console.log("인식된 차 번호 : "+carNum);
+//             carNum = carNum.trim();
+
+//             var sql1 = 'SELECT * FROM user WHERE ID = ? ';
+//             console.log(sql1);
+//             console.log("last carNum : "+carNum);
+//             conn.query(sql1, userID, function(err,rows, results) {
+//             if(err) {
+//                 console.log('query is not excuted. insert fail...\n' + err);
+//             }
+//             // if(!results[0]) {
+                
+//             //     console.log("차 번호로 예약된 게 없습니다.");
+//             //     //res.redirect('/enterCar_ReserNum');
+//             // }
+//             else { 
+//                 //console.log("예약이 되어있습니다. 차단기가 올라갑니다.");
+//                 //res.send('<script type="text/javascript">alert("예약이 되어있습니다. 차단기가 올라갑니다.");window.location="/afterEnterCar";</script>');
+//                 // 차번호 확인용 팝업창으로 바로 이동
+//                 console.log("checkcheck");
+//                 // res.ridrect('checkCarNumber.ejs', {
+//                 //     list : rows,
+//                 //     carNum : carNum
+//                 // });
+//                 res.render('/checkCarNumber', {
+//                     list : rows,
+//                     carNum : carNum
+//                 });
+//             }
+//             });
+
+//         })
+//     }
+
+//     ocr(filename);
+// });
+app.get('/checkCarNumber', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    console.log("현재 ID : "+userID);
+
+    var sql = 'SELECT * FROM user WHERE ID = ?';
+
+    console.log(sql);
+    
+    conn.query(sql, [userID], function(err,result,rows, fields) {
+        if(err) console.log('query is not excuted. insert fail...\n' + err);
+        else {
+            res.render('checkCarNumber',{
+                results: result,
+                list : rows
+            });
+            res.redirect('/checkCarNumber'+memberCarNum);
+        }
+    });
+});
+
 // 입차 완료
 app.get('/afterEnterCar', function (req, res) {
-    //var carNumber = require('./ocr.js');
-    // console.log(carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg'));
+    // var carNumber = require('./ocr.js');
+    // // console.log(carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg'));
+    // var carNum = carNumber('C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg');
+    // console.log("const carNum : "+carNum);
 
-    const carNum = '152가 3018';
+    //const carNum = '152가 3018';
     // sql = 'SELECT ReservationNum FROM reservation WHERE CarNum = ?';
     // conn.query(sql, [carNum], function(err, results, fields) {
     //     if(err) console.log('query is not excuted. select fail...\n' + err);
@@ -281,36 +415,36 @@ app.get('/afterEnterCar', function (req, res) {
     console.log(body);
 
     var userID = loginMemberID;
+    var carNum = memberCarNum;
 
     console.log("현재 ID : "+userID);
+    console.log("현재 carNum : "+carNum);
 
     var sql1 = 'SELECT * FROM user WHERE ID=?';
     conn.query(sql1, [userID], function(err,results, rows, fields) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         if(!results[0]) { // 값이 없을 때
-            console.log("예약 내역이 없습니다.");
+            console.log("아이디가 존재하지 않음");
             res.render('afterEnterCar.ejs',{
-                list : rows
+                list : rows,
+                results : results
             });
         }
         else { // 차번호 && 예약 완료가 있을 때
             var now = new Date(); 
             var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             var todayTime = todayDate.getTime();
-            console.log("RESULTS" + results[0].ReservationNum);
+            console.log("아이디예약 번호" + results[0].ReservationNum);
             var sql2 = 'SELECT * FROM reservation WHERE ReservationDate = ? AND CarNum = ? AND UseStatus="예약완료"';
             console.log("오늘의 Date : "+ todayDate);
             conn.query(sql2, [todayDate, carNum], function(err,results,rows, fields) {
                 if(err) console.log('query is not excuted. select fail...\n' + err);
                 if(!results[0]) { // 값이 없을 때
-                    console.log("오늘의 예약 내역이 없습니다.");
-                    res.render('afterEnterCar.ejs',{
-                        results : results,
-                        list : rows
-                    });
+                    console.log("오늘 날짜와 일치하는 예약 내역이 없습니다.");
+                    res.redirect('/enterCar_ReserNum');
                 }
                 else { // 예약이 오늘 & 차번호일치 & 예약완료
-                    console.log("RESULTS" + results[0].ReservationNum);
+                    console.log("예약 번호: " + results[0].ReservationNum);
                     var ReservationNum = results[0].ReservationNum;
                     var moment = require('moment');
                     require('moment-timezone');
@@ -321,22 +455,31 @@ app.get('/afterEnterCar', function (req, res) {
                     conn.query(sql3, [ReservationNum,R_StartTime], function (err, rows, results) {
                         if(err) console.log('query is not excuted. select fail...\n' + err);
                         else {
-                            res.render('afterEnterCar.ejs',{
-                                results: results[0],
-                                list : rows
-                            });
-                            console.log("last : " + results[0].R_StartTime);
+                            var sql4 = 'UPDATE reservation SET UseStatus = "이용완료" WHERE ReservationNum = ?';
+
+                            conn.query(sql4, [ReservationNum], function(err, rows, results) {
+                                if(err) console.log('query is not excuted. select fail...\n' + err);
+                                else {
+                                    var sql5 = 'SELECT * FROM reservation WHERE ReservationNum = ?';
+                                    conn.query(sql5, [ReservationNum], function(err, rows, results) {
+                                    if(err) console.log('query is not excuted. select fail...\n' + err);
+                                    else {
+                                        res.render('afterEnterCar', {
+                                            results : results,
+                                            list : rows
+                                        })
+                                    }
+                                    })
+                                }
+                            })
                         }
-                    });
-                    res.render('afterEnterCar.ejs',{
-                        results: results[0],
-                        list : rows
                     });
                 }
             });
         }
     });
 });
+
 
 app.post('/afterEnterCar', function (req, res) {
     var body = req.body;
@@ -370,7 +513,7 @@ app.get('/enterCar_ReserNum', function (req, res) {
 
     console.log(sql);
     
-    conn.query(sql, function(err,result,fields) {
+    conn.query(sql, [userID], function(err,result,rows,fields) {
         if(err) console.log('query is not excuted. insert fail...\n' + err);
         else {
             res.render('enterCar_ReserNum',{
@@ -451,6 +594,59 @@ app.post('/charge', function (req, res) {
 /* ------------------------------------------------------------------------------*/
 
 
+
+/* ----------------------------------예약 확인하기---------------------------------------*/
+app.get('/checkReservation', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    console.log("checkReservation 현재 ID : "+userID);
+
+    var sql = 'SELECT * FROM reservation WHERE ID = ? AND UseStatus = "예약완료"';
+
+    console.log(sql);
+    
+    conn.query(sql, [userID], function(err,results,rows,fields) {
+        if(err) console.log('query is not excuted. insert fail...\n' + err);
+        else {
+            res.render('checkReservation',{
+                results: results,
+                list : rows
+            });
+            console.log(rows);
+            console.log(results);
+        }
+    });
+});
+
+app.post('/checkReservation', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM reservation WHERE ID = ? AND UseStatus = "예약완료"';
+
+    console.log(sql);
+    
+    conn.query(sql, [userID], function(err,result,rows,fields) {
+        if(err) console.log('query is not excuted. insert fail...\n' + err);
+        else {
+            res.render('checkReservation',{
+                results: result,
+                list : rows
+            });
+        }
+    });
+});
+/* ------------------------------------------------------------------------------*/
+
+
+
+
+
 app.get('/reservationNum', function (req, res) {
     var userID = loginMemberID;
 
@@ -486,61 +682,41 @@ app.get('/transaction1', function (req, res) {
 
 
 
-app.get('/adminDay', function (req, res) {
-    var userID = loginMemberID;
+/* ---------------------------------예약 변경하기------------------------------------------*/
 
-    var sql = 'SELECT * FROM user WHERE ID=?';
-
-    console.log("현재 ID : " + userID);
-    
-    conn.query(sql, [userID], function (err, rows, results) {
-        if(err) console.log('query is not excuted. select fail...\n' + err);
-        else {
-            res.render('adminDay.ejs', {list : rows});
-            console.log(rows);
-        }
-    });
-});
-
-
-app.get('/afterDepartCar', function (req, res) {
-    var userID = loginMemberID;
-
-    var sql = 'SELECT * FROM user WHERE ID=?';
-
-    console.log("현재 ID : " + userID);
-    
-    conn.query(sql, [userID], function (err, rows, results) {
-        if(err) console.log('query is not excuted. select fail...\n' + err);
-        else {
-            res.render('afterDepartCar.ejs', {list : rows});
-            console.log(rows);
-        }
-    });
-});
-
-app.post('/afterDepartCar', function (req, res) {
+app.get('/changeReservation', function (req, res) {
     var body = req.body;
 
     var userID = loginMemberID;
 
-    var sql = 'SELECT * FROM user WHERE ID=?';
+    console.log("현재 ID : " + userID);
 
-    console.log("로그인된 ID : "+userID);
-    
-    console.log("post 실행");
+    var sql = 'SELECT * FROM reservation,user WHERE user.ID = ?';
+
     conn.query(sql, [userID], function (err, rows, results) {
+
+        var moment = require('moment');
+        require('moment-timezone');
+        moment.tz.setDefault("Asia/Seoul");
+        var nowDate = moment().format('YYYY-MM-DD');
+        var nowTime = moment().format('HH:MM:SS');
+
+        var now = new Date(); 
+        var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        var todayTime = todayDate.getTime();
+        
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('afterDepartCar.ejs', { list : rows});
-            console.log(rows);
+            res.render('changeReservation.ejs', 
+            {list : rows, todayDate:todayDate, nowDate : nowDate, nowTime : nowTime});
+            //console.log(todayDate);
+            //console.log(todayTime);
+            //console.log(rows);
         }
     });
 });
 
-/* ---------------------------------예약 변경하기------------------------------------------*/
-
-app.get('/changeReservation', function (req, res) {
+app.get('/changeReservation2', function (req, res) {
     var body = req.body;
 
     var userID = loginMemberID;
@@ -551,14 +727,20 @@ app.get('/changeReservation', function (req, res) {
 
     conn.query(sql, [userID], function (err, rows, results) {
 
+        var moment = require('moment');
+        require('moment-timezone');
+        moment.tz.setDefault("Asia/Seoul");
+        var nowDate = moment().format('YYYY-MM-DD');
+        var nowTime = moment().format('HH:MM:SS');
+
         var now = new Date(); 
         var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         var todayTime = todayDate.getTime();
         
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('changeReservation.ejs', 
-            {list : rows, todayDate:todayDate, todayTime:todayTime});
+            res.render('changeReservation2.ejs', 
+            {list : rows, todayDate:todayDate, nowDate : nowDate, nowTime : nowTime});
             //console.log(todayDate);
             //console.log(todayTime);
             //console.log(rows);
@@ -601,13 +783,16 @@ app.post('/changeReservation' , function (req, res) {
 
     if(body.breservationNum) { // 예약 변경 버튼이 눌린 경우에만
         var rmReservationNum = body.breservationNum;
+
+        //var rmReservationNum = list[rmNum].ReservationNum;
+
         console.log("삭제할 예약번호 : " + rmReservationNum);
         var sql2 = 'DELETE FROM reservation WHERE ReservationNum = ?';
         console.log(sql2);
         conn.query(sql2, [rmReservationNum], function (err, rows, results) {
             if(err) console.log('query is not excuted. select fail...\n' + err);
             else {
-                res.render('changeReservation.ejs', { list : rows , rmReservationNum : rmReservationNum });
+                res.redirect('/afterChangeReservation');
                 console.log(rows);
                 console.rmReservationNum;
                 console.log("삭제 완료");
@@ -674,7 +859,7 @@ app.get('/afterChangeReservation', function (req, res) {
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('afterChangeReservation.ejs', {list : rows});
+            res.render('afterChangeReservation', {list : rows});
             console.log(rows);
         }
     });
@@ -682,6 +867,8 @@ app.get('/afterChangeReservation', function (req, res) {
 
 /* ----------------------------------------------------------------------------------*/
 
+
+/* ---------------------------------------출차하기-------------------------------------------*/
 app.get('/departCar', function (req, res) {
     var userID = loginMemberID;
 
@@ -692,7 +879,7 @@ app.get('/departCar', function (req, res) {
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('departCar.ejs', {list : rows});
+            res.render('departCar', {list : rows});
             console.log(rows);
         }
     });
@@ -700,22 +887,100 @@ app.get('/departCar', function (req, res) {
 
 app.post('/departCar', function (req, res) {
     var body = req.body;
+    console.log(body);
 
+    console.log("departCar post");
+    
+    var carNum = memberCarNum;
     var userID = loginMemberID;
 
-    var sql = 'SELECT * FROM user WHERE ID=?';
+    var sql1 = 'SELECT * FROM user WHERE ID=?';
 
-    console.log("로그인된 ID : "+userID);
+    console.log("현재 ID : " + userID);
     
-    console.log("post 실행");
-    conn.query(sql, [userID], function (err, rows, results) {
+    conn.query(sql1, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('departCar.ejs', { list : rows});
-            console.log(rows);
+            var moment = require('moment');
+            require('moment-timezone');
+            moment.tz.setDefault("Asia/Seoul");
+            var R_EndTime = moment().format('HH:MM:SS');
+            console.log("R_EndTime : "+R_EndTime);
+            var sql2 = 'SELECT * FROM reservation WHERE carNum = ?';
+            conn.query(sql2, [carNum], function(err,results, rows) {
+            if(err) {
+                console.log('query is not excuted. insert fail...\n' + err);
+            }
+            else { 
+                if (results.EndTime > R_EndTime) {
+                    console.log("초과 시간 발생");
+                    var overTime = results.EndTime.getTime() - R_EndTime.getTime();
+                    var overPrice = overTime * 100;
+                    console.log("overPrice : "+overPrice);
+                    var sql3 = 'UPDATE reservation SET overPrice = overPrice WHERE carNum = ?';
+                    conn.query(sql3, [carNum], function(err,results, rows) {
+                        if(err) {
+                            console.log('query is not excuted. insert fail...\n' + err);
+                        }
+                        else {
+                            console.log("초과 금액 결제 필요");
+                            res.redirect('/payExtraFee');
+                        }
+                    });
+                }
+                else {
+                    console.log("초과시간 없음");
+                    res.redirect('/afterDepartCar');
+                }
+            }
+            });
         }
     });
 });
+/* ----------------------------------------------------------------------------------*/
+
+/* ------------------------------------출차 완료----------------------------------------------*/
+app.get('/afterDepartCar', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    console.log("현재 ID : "+userID);
+
+    var sql1 = 'SELECT * FROM user WHERE ID=?';
+    conn.query(sql1, [userID], function(err,results, rows, fields) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else { // 값이 없을 때
+            console.log("출차 완료");
+            res.render('afterDepartCar',{
+                list : rows
+            });
+        }
+    });
+});
+
+app.post('/afterDepartCar', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var userID = loginMemberID;
+
+    console.log("현재 ID : "+userID);
+
+    var sql1 = 'SELECT * FROM user WHERE ID=?';
+    conn.query(sql1, [userID], function(err,results, rows, fields) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else { // 값이 없을 때
+            console.log("출차 완료");
+            res.render('afterDepartCar',{
+                list : rows
+            });
+        }
+    });
+});
+/* ----------------------------------------------------------------------------------*/
+
 
 app.get('/completeReservation', function (req, res) {
     var userID = loginMemberID;
@@ -736,18 +1001,35 @@ app.get('/completeReservation', function (req, res) {
 app.get('/confirmReservation', function (req, res) {
     var userID = loginMemberID;
 
-    var sql = 'SELECT * FROM user WHERE ID=?';
+    var sql = 'SELECT * FROM reservation WHERE ID=?';
 
     console.log("현재 ID : " + userID);
     
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('confirmReservation.ejs', {list : rows});
+            res.render('confirmReservation', {
+                list : rows
+            });
             console.log(rows);
         }
     });
 });
+app.post('/confirmReservation', function (req, res) {
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM reservation WHERE ID=?';
+
+    console.log("현재 ID : " + userID);
+    
+    conn.query(sql, [userID], function (err, rows, results) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else {
+            res.render('reservationPayment');
+        }
+    });
+});
+
 
 app.get('/index', function (req, res) {
     var userID = loginMemberID;
@@ -765,21 +1047,27 @@ app.get('/index', function (req, res) {
     });
 });
 
+
+/* ----------------------------------초과 금액 결제하기---------------------------------------*/
 app.get('/payExtraFee', function (req, res) {
     var userID = loginMemberID;
 
-    var sql = 'SELECT * FROM user WHERE ID=?';
+    var sql = 'SELECT * FROM reservation,cartransaction WHERE reservation.ID=?';
 
     console.log("현재 ID : " + userID);
     
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('payExtraFee.ejs', {list : rows});
+            res.render('payExtraFee.ejs', {
+                list : rows
+            });
             console.log(rows);
         }
     });
 });
+
+/* ----------------------------------예약 확인하기---------------------------------------*/
 
 app.get('/reservationPayment', function (req, res) {
     var userID = loginMemberID;
@@ -791,7 +1079,7 @@ app.get('/reservationPayment', function (req, res) {
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('reservationPayment.ejs', {list : rows});
+            res.render('reservationPayment', {list : rows});
             console.log(rows);
         }
     });
@@ -802,10 +1090,20 @@ app.get('/reservationPayment', function (req, res) {
 
 /* -----------------------------개인 기록 조회--------------------------------------- */
 app.get('/myrecord', function (req, res) {
-    var sql = 'SELECT ReservationDate, StartTime, EndTime, ReservationNum, UseStatus FROM Reservation';
-    conn.query(sql, function (err, rows, fields) {
-        if(err) console.log('query is not excuted. select fail...\n' + err);
-        else res.render('myrecord.ejs', {list : rows});
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM user WHERE ID=?';
+
+    console.log("현재 ID : " + userID);
+
+    conn.query(sql, function (err, idrows, fields) {
+
+     var sql = 'SELECT ReservationDate, StartTime, EndTime, ReservationNum, UseStatus FROM Reservation';
+        conn.query(sql, function (err, rows, fields) {
+            if(err) console.log('query is not excuted. select fail...\n' + err);
+            else res.render('myrecord.ejs', {rows : rows, list: idrows});
+        });
+
     });
 });
 /* -------------------------------------------------------------------------------------- */
@@ -835,56 +1133,190 @@ app.get(['/checkMyRecord','/checkMyRecord/:ReservationNum'], function (req, res)
 
 /* ------------------------------------ 월별 통계량 보기 ------------------------------------ */
 app.get('/adminMonth', function (req, res) {
+    var userID = loginMemberID;
+    var sql = 'SELECT * FROM user WHERE ID=?';
+    console.log("현재 ID : " + userID);
     
-    var body = req.body;
-    var Year = body.Year;
-    var Month = [body.Month-2, body.Month-1,body.Month,body.Month-(-1),body.Month-(-2)];
-    var nextmonth = body.Month-(-1);
-    var midMonth = body.Month;
-    console.log(Year,Month);
+    conn.query(sql, [userID], function (err, rows, results) {
 
-    var sql = "SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? ;"
-        conn.query(sql,[body.Month-2, body.Month-1,body.Month,nextmonth,nextmonth+1],function (err, Reservation, fields) {
+        var body=req.body;
+        var Year=body.Year;
+        var Month=body.Month;
+        var sql = 'SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum) count, Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? '
+        console.log(Year,Month);
+        conn.query(sql, [Month-3,Month-2,Month-1,Month,Month-(-1)], function (err, Reservation, results) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else {
             console.log(Reservation);
-            if(err) console.log('query is not excuted. select fail...\n' + err);
-            else {res.render('adminMonth.ejs', { Reservation : Reservation ,Year:Year, Month:midMonth});
+            res.render('adminMonth.ejs', {list : rows, Reservation: Reservation ,Month: Month});
+            
         }
         });
+    });
 
 });
+
 
 app.post('/adminMonth', function (req, res) {
 
-    var body = req.body;
-    var Year = body.Year;
-    var Month = [body.Month-2, body.Month-1,body.Month,body.Month-(-1),body.Month-(-2)];
-    var nextmonth = body.Month-(-1);
-    var midMonth = body.Month;
-    console.log(Year,Month);
+    var userID = loginMemberID;
+    var sql = 'SELECT * FROM user WHERE ID=?';
+    console.log("현재 ID : " + userID);
+    
+    conn.query(sql, [userID], function (err, rows, results) {
 
-    var sql = "SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? ;"
-        conn.query(sql,[body.Month-2, body.Month-1,body.Month,nextmonth,nextmonth+1],function (err, Reservation, fields) {
+        var body=req.body;
+        var Year=body.Year;
+        var Month=body.Month;
+        var sql = 'SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum) count, Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? '
+        console.log(Year,Month);
+        conn.query(sql, [Month-3,Month-2,Month-1,Month,Month-(-1)], function (err, Reservation, results) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else {
             console.log(Reservation);
-            if(err) console.log('query is not excuted. select fail...\n' + err);
-            else {res.render('adminMonth.ejs', { Reservation : Reservation ,Year:Year, Month:midMonth});
+            res.render('adminMonth.ejs', {list : rows, Reservation: Reservation ,Month: Month});
+            
         }
         });
-    
+    });
 
 });
+/* -------------------------------------------------------------------------------------- */
+
+/* ----------------------------------사용자 일별 통계------------------------------------- */
+/* ------------------------------------ 일별 통계량 보기 ------------------------------------ */
+app.get('/adminDay', function (req, res) {
+    
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM user WHERE ID=?';
+
+    console.log("현재 ID : " + userID);
+
+    conn.query(sql,[userID],function (err, row, fields) {
+
+    var body = req.body;
+    var sYear = body.sYear;
+    var sMonth = body.sMonth;
+    var sDay = body.sDay;
+    var lYear = body.lYear;
+    var lMonth = body.lMonth;
+    var lDay = body.lDay;
+
+    console.log(sYear,sMonth);
+
+    var sql = "select ReservationDate, startTime, endTime,reservationNum,usestatus from reservation where year(ReservationDate)=? AND Month(ReservationDate)>=? AND Month(ReservationDate)<=? AND Day(ReservationDate)>=? AND Day(ReservationDate) <=? AND usestatus='이용완료'"
+        conn.query(sql,[sYear,sMonth,lMonth,sDay,lDay],function (err, Reservation, fields) {
+            console.log(Reservation);
+            if(err) console.log('query is not excuted. select fail...\n' + err);
+            else {res.render('adminDay.ejs', { list:row, Reservation : Reservation ,
+                sYear:sYear, 
+                sMonth:sMonth , 
+                sDay:sDay,
+                lYear:lYear, 
+                lMonth:lMonth , 
+                lDay:lDay
+            });
+        }
+        });
+    });
+});
+
+app.post('/adminDay', function (req, res) {
+
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM user WHERE ID=?';
+
+    console.log("현재 ID : " + userID);
+
+    conn.query(sql,[userID],function (err, row, fields) {
+
+    var body = req.body;
+    var sYear = body.sYear;
+    var sMonth = body.sMonth;
+    var sDay = body.sDay;
+    var lYear = body.lYear;
+    var lMonth = body.lMonth;
+    var lDay = body.lDay;
+
+    console.log(sYear,sMonth);
+
+    var sql = "select ReservationDate, startTime, endTime,reservationNum,usestatus from reservation where year(ReservationDate)=? AND Month(ReservationDate)>=? AND Month(ReservationDate)<=? AND Day(ReservationDate)>=? AND Day(ReservationDate) <=? AND usestatus='이용완료'"
+        conn.query(sql,[sYear,sMonth,lMonth,sDay,lDay],function (err, Reservation, fields) {
+            console.log(Reservation);
+            if(err) console.log('query is not excuted. select fail...\n' + err);
+            else {res.render('adminDay.ejs', { list:row, Reservation : Reservation ,
+                sYear:sYear, 
+                sMonth:sMonth , 
+                sDay:sDay,
+                lYear:lYear, 
+                lMonth:lMonth , 
+                lDay:lDay
+            });
+        }
+        });
+    });
+});
+/* ------------------------------------------------------------------------------ */
+
 
 /* -------------------------------------------------------------------------------------- */
 
 /* ----------------------------------예약하기------------------------------------- */
 app.get('/makeReservation', function (req, res) {
+    var body = req.body;
+
     // var cal = calendar.js;
     // var Month = cal.yy;
     // var Day =body.calday;
     
-    // console.log(Month);
+    //console.log(Month);
 
-    res.render('makeReservation.ejs');
+    
+    var userID = loginMemberID;
+
+    console.log("현재 ID : "+userID);
+
+    var sql = 'SELECT * FROM user WHERE ID = ?';
+
+    console.log(sql);
+    
+    conn.query(sql, [userID], function(err,result,rows,fields) {
+        if(err) console.log('query is not excuted. insert fail...\n' + err);
+        else {
+            res.render('makeReservation',{
+                results: result,
+                list : rows
+            });
+        }
+    });
+
 });
+
+app.post('/makeReservation', function (req, res) {
+    var body = req.body;
+    console.log(body);
+
+    var select_month = body.calday;
+    var select_day = body.caldate;
+    console.log("select_month : "+select_month);
+    console.log("select_day:"+select_day);
+
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM user WHERE ID = ?';
+
+    conn.query(sql, [userID], function(err,result,rows,fields) {
+        if(err) console.log('query is not excuted. insert fail...\n' + err);
+        else {
+            res.redirect('/confirmReservation');
+        }
+    });
+    
+});
+/* -------------------------------------------------------------------------------------- */
+
 
 /* ----------------------------------calendar 받아오기------------------------------------- */
 app.get('/calendar', function (req, res) {

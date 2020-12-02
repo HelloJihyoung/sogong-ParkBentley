@@ -1,0 +1,35 @@
+ul #paging{
+    text-align:center;
+    list-style-type: none;
+}
+ul li #page{
+    display:inline;
+    list-style-type: none;
+	vertical-align:middle;
+}
+ul li a #pagingA {
+	display:-moz-inline-stack;	/*FF2*/
+	display:inline-block;
+	vertical-align:top;
+	padding:4px;
+	margin-right:3px;
+	width:15px !important;
+	color:#000;
+	font:bold 12px tahoma;
+    border:1px solid #eee;
+    list-style-type: none;
+	text-align:center;
+	text-decoration:none;
+	width /**/:26px;	/*IE 5.5*/
+
+}
+ul li a.now {
+	color:#fff;
+	background-color:#EAD08C;
+	border:1px solid #EAD08C;
+}
+ul li a:hover, ul li a:focus {
+	color:#fff;
+	border:1px solid #EAD08C;
+	background-color:#EAD08C;
+}

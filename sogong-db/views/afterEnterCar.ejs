@@ -37,7 +37,7 @@
             <li><a href="">입출차 확인</a>
                 <ul>
                     <li><a href="/enterCar">입차하기</a></li>
-                    <li><a href="/deaprtCar">출차하기</a></li>
+                    <li><a href="/departCar">출차하기</a></li>
                 </ul>
             </li>
             <li><a href="">마이페이지</a>
@@ -65,12 +65,18 @@
     <!-- 기본 테마 끝 -->
     
         <div class="yellowRoundBox">
-            <div class="text"><%=results.ID %>님</div>
-            <div class="text">예약 번호 : <%=results.ReservationNum %></div>
-            <div class="text">예약 시간 : <%=results.StartTime %> ~ <%=results.EndTime %></div>
-            <!--<div class="text">입차 시간 : <%=results.R_StartTime %></div>-->
-            <div class="text">출차 예정 시간 : <%=results.EndTime %></div>
-            <div class="text">입차 완료. 차단기가 올라갑니다.</div>
+
+            <%if ( !list[0] ) { %>
+                <div class="text">오늘의 예약 내역이 없습니다.</div>
+                <div class="text">예약 날짜를 다시 확인해주세요.</div>
+            <% } else { %>
+                <div class="text"><%=list[0].ID %>님</div>
+                <div class="text">예약 번호 : <%=list[0].ReservationNum %></div>
+                <div class="text">예약 시간 : <%=list[0].StartTime %> ~ <%=list[0].EndTime %></div>
+                <div class="text">출차 예정 시간 : <%=list[0].EndTime %></div>
+                <div class="text">입차 완료. 차단기가 올라갑니다.</div>
+            <% } %>
+            
             
         </div>
         

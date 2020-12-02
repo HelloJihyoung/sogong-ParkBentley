@@ -44,15 +44,46 @@
     /* identical to box height */
     color: #483F37;
 }
-.yellowReceipt .receiptText{
-    margin: 40px;
+.yellowReceipt .box{
+    width: 90%;
+    height: 100px;
+
+}
+.yellowReceipt .box .receiptText{
+    float: left;
+    width: 50%;
+    
+    margin: 20px;
     font-size: 35px;
     line-height: 70px;
     /* identical to box height */
     color: #483F37;
 }
-.yellowReceipt .cost{
-    margin: 40px;
+.yellowReceipt .box .receiptText_value{
+    float: right;
+    width: 30%;
+    text-align: right;
+    margin: 20px;
+    font-size: 35px;
+    line-height: 70px;
+    /* identical to box height */
+    color: #483F37;
+}
+.yellowReceipt .box .cost{
+    float: left;
+    width: 50%;
+    
+    margin: 20px;
+    font-size: 35px;
+    line-height: 70px;
+    /* identical to box height */
+    color: #ff0000;
+}
+.yellowReceipt .box .cost_value{
+    float: right;
+    width: 30%;
+    text-align: right;
+    margin: 20px;
     font-size: 35px;
     line-height: 70px;
     /* identical to box height */
@@ -64,7 +95,20 @@
     background-color: #483F37;
 }
 .yellowReceipt .remainBalance{
-    margin: 40px;
+    float: left;
+    width: 50%;
+    
+    margin: 20px;
+    font-size: 35px;
+    line-height: 70px;
+    /* identical to box height */
+    color: #0000ff;
+}
+.yellowReceipt .remainBalance_value{
+    float: right;
+    width: 30%;
+    text-align: right;
+    margin: 20px;
     font-size: 35px;
     line-height: 70px;
     /* identical to box height */
@@ -81,6 +125,19 @@
 .warnningBox .check{
     font-size: 28px;
     color: #483F37;
+}
+
+#payYellowButton button{
+    position: absolute;
+    width: 200px;
+    height: 70px;
+    padding: 10px;
+    margin: 50px 20px 20px 0px;
+    
+    vertical-align: middle;
+    background: #EAD08C;
+    border: 3px solid #EAD08C;
+    border-radius: 30px;
 }
 
 #nextYellowButton button{

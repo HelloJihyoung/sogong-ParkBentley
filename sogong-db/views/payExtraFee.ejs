@@ -13,8 +13,12 @@
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">
-        <li><a href="/login">Login</a></li>
-         <li><a href="/join">join</a></li>
+        <%if ( list[0].ID == "root" ) { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+        <% } else { %>
+            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
+        <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
@@ -43,11 +47,15 @@
                     <li><a href="/charge">잔액 충전</a></li>
                 </ul>
             </li>
-            <li><a href="">사용 통계 조회</a>
-                <ul><li><a href="/adminMonth">월별 사용통계</a></li>
-                    <li><a href="/adminDay">일별 사용통계</a></li>
-                </ul>
-            </li>
+            <%if ( list[0].ID == "admin" ) { %>
+                <li><a href="">사용 통계 조회</a>
+                    <ul>
+                        <li><a href="/adminMonth">월별 사용통계</a></li>
+                        <li><a href="/adminDay">일별 사용통계</a></li>
+                    </ul>
+                </li>
+            <% } else { %>
+            <% } %>
         </ul>
     </nav>
     
@@ -60,16 +68,15 @@
     <div class="container">
         <div class="leftYellowBox">
             <div class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div class="text">사용자 이름</div>
-            <div class="text">출차 예정 시간</div>
-            <div class="text">출차 시간</div>
+            <div class="text">기존 금액 : <%=list[0].Price%></div>
+            <div class="text">예약 출차 시간 : <%=list[0].EndTime%></div>
+            <div class="text">실제 출차 시간 : <%=list[0].R_EndTime%></div>
 
         </div>
         <div class="rightYellowBox">
             <div class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div class="text">초과 시간</div>
-            <div class="text">결재 잔액</div>
-            <div class="text">초과 금액</div>
+            <div class="text">초과 금액 : <%= list[0].overPrice%></div>
+            <div class="text">총 결제 금액 : <%list=[0].PaidMoney + list[0].overPrice%></div>
 
             <div id="payButton">
                 <button type="button" id="buttonText">결제하기</button>
