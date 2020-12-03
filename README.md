@@ -1,6 +1,12 @@
 # parkBentley
 >2020 2학기 소공 프로젝트
 
+## 실행 화면
+### 홈 화면
+![홈화면](https://user-images.githubusercontent.com/45346786/100971081-91e5bf00-3579-11eb-9a10-df8b43677c22.PNG)
+
+### 
+
  ## 사용법
  ### master branch 기준
   ```
