@@ -1207,30 +1207,22 @@ app.get('/adminDay', function (req, res) {
 
     console.log("현재 ID : " + userID);
 
-    conn.query(sql,[userID],function (err, row, fields) {
+    conn.query(sql,[userID],function (err, rows, fields) {
 
     var body = req.body;
-    var sYear = body.sYear;
-    var sMonth = body.sMonth;
-    var sDay = body.sDay;
-    var lYear = body.lYear;
-    var lMonth = body.lMonth;
-    var lDay = body.lDay;
+    var Year = body.Year;
+    var Month = body.Month;
+    var Day = body.Day;
 
-    console.log(sYear,sMonth);
-
-    var sql = "select ReservationDate, startTime, endTime,reservationNum,usestatus from reservation where year(ReservationDate)=? AND Month(ReservationDate)>=? AND Month(ReservationDate)<=? AND Day(ReservationDate)>=? AND Day(ReservationDate) <=? AND usestatus='이용완료'"
-        conn.query(sql,[sYear,sMonth,lMonth,sDay,lDay],function (err, Reservation, fields) {
+    console.log(Year,Month,Day)
+    var sql = 'select ReservationDate, ID, reservationNum from reservation where year(ReservationDate)=? AND Month(ReservationDate)=? AND Day(ReservationDate)=?'
+        conn.query(sql,[Year,Month,Day],function (err, Reservation, fields) {
             console.log(Reservation);
             if(err) console.log('query is not excuted. select fail...\n' + err);
-            else {res.render('adminDay.ejs', { list:row, Reservation : Reservation ,
-                sYear:sYear, 
-                sMonth:sMonth , 
-                sDay:sDay,
-                lYear:lYear, 
-                lMonth:lMonth , 
-                lDay:lDay
-            });
+            else {
+                res.render('adminDay.ejs', { list:rows, Reservation : Reservation  });
+                console.log(Reservation);
+           
         }
         });
     });
@@ -1244,30 +1236,22 @@ app.post('/adminDay', function (req, res) {
 
     console.log("현재 ID : " + userID);
 
-    conn.query(sql,[userID],function (err, row, fields) {
+    conn.query(sql,[userID],function (err, rows, fields) {
 
     var body = req.body;
-    var sYear = body.sYear;
-    var sMonth = body.sMonth;
-    var sDay = body.sDay;
-    var lYear = body.lYear;
-    var lMonth = body.lMonth;
-    var lDay = body.lDay;
+    var Year = body.Year;
+    var Month = body.Month;
+    var Day = body.Day;
 
-    console.log(sYear,sMonth);
-
-    var sql = "select ReservationDate, startTime, endTime,reservationNum,usestatus from reservation where year(ReservationDate)=? AND Month(ReservationDate)>=? AND Month(ReservationDate)<=? AND Day(ReservationDate)>=? AND Day(ReservationDate) <=? AND usestatus='이용완료'"
-        conn.query(sql,[sYear,sMonth,lMonth,sDay,lDay],function (err, Reservation, fields) {
+    console.log(Year,Month,Day)
+    var sql = 'select ReservationDate, ID, reservationNum from reservation where year(ReservationDate)=? AND Month(ReservationDate)=? AND Day(ReservationDate)=?'
+        conn.query(sql,[Year,Month,Day],function (err, Reservation, fields) {
             console.log(Reservation);
             if(err) console.log('query is not excuted. select fail...\n' + err);
-            else {res.render('adminDay.ejs', { list:row, Reservation : Reservation ,
-                sYear:sYear, 
-                sMonth:sMonth , 
-                sDay:sDay,
-                lYear:lYear, 
-                lMonth:lMonth , 
-                lDay:lDay
-            });
+            else {
+                res.render('adminDay.ejs', { list:rows, Reservation : Reservation  });
+                console.log(Reservation);
+           
         }
         });
     });
