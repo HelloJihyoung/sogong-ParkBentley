@@ -3,7 +3,7 @@
 
 ## 실행 화면
 ### 홈 화면
-![홈화면](https://user-images.githubusercontent.com/45346786/100971081-91e5bf00-3579-11eb-9a10-df8b43677c22.PNG)
+![parkBentley_main](https://user-images.githubusercontent.com/46514182/100977448-57cdea80-3584-11eb-8169-8849fa168ada.png)
 
 ### 회원가입
 ![회원가입](https://user-images.githubusercontent.com/45346786/100971083-927e5580-3579-11eb-9516-146566b384de.PNG)
