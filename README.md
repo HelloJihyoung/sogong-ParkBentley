@@ -9,7 +9,7 @@
 ![회원가입](https://user-images.githubusercontent.com/46514182/100978659-0e7e9a80-3586-11eb-9238-3a8532b2fad8.png)
 
 ### 로그인
-![로그인](https://user-images.githubusercontent.com/46514182/100979033-94024a80-3586-11eb-9996-cb61fafa8bbc.png)
+![로그인](https://user-images.githubusercontent.com/46514182/100980828-33284180-3589-11eb-8af8-8760ce5e98ba.png)
 
 ### 로그인 완료 후 메인 화면
 ![parkBentley_main](https://user-images.githubusercontent.com/46514182/100979168-cd3aba80-3586-11eb-9c7c-2f54c1c55c84.png)
