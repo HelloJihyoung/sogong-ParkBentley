@@ -84,6 +84,8 @@
 ### 예약 확인 - 최종 예약 내역 확인
 ![예약확인-예약확인](https://user-images.githubusercontent.com/45346786/100971056-8befde00-3579-11eb-8f11-8fc5c68ec124.PNG)
 
+### 관리자 모드 - 일별 사용량 확인
+![일별사용통계](https://user-images.githubusercontent.com/46514182/100978055-31f51580-3585-11eb-8acb-85030553c09b.png)
 
  ## 사용법
  ### master branch 기준
