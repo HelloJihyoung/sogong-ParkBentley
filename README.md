@@ -109,7 +109,7 @@ CREATE DATABASE ParkBentley;
 ![사용기록목록](https://user-images.githubusercontent.com/46514182/100982292-358b9b00-358b-11eb-9384-e46e7c0ab494.png)
 
 ### 개인 사용 기록 조회 - 자세히 보기
-![사용기록 조회](https://user-images.githubusercontent.com/45346786/100971089-93af8280-3579-11eb-9351-ff0f3fa8ffba.PNG)
+![사용기록조회](https://user-images.githubusercontent.com/46514182/100982620-a0d56d00-358b-11eb-90e4-e234b96681a9.png)
 
 ### 예약하기 - 날짜 및 시간 선택
 ![예약하기](https://user-images.githubusercontent.com/45346786/100971053-8b574780-3579-11eb-8a1d-97439277ed8e.PNG)
