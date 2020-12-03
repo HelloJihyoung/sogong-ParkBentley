@@ -25,9 +25,10 @@
     </nav>
     <nav class="navbar">
         <div class="logo">
-
-            <a href="/main">Park Bentley</a>
-
+            <img src="./image/car.png" width="120" style="margin-left: 200px; margin-top: 30px;"/>
+            <div class="logoText">
+                <a href="/main">Park Bentley</a>
+            </div>
         </div>
         <ul class="navbar_menu">
             <li><a href="">서비스 이용</a>
@@ -63,71 +64,71 @@
     <!-- 기본 테마 끝 -->
     <div class="yellowBar">
         <p class="yellowBarText">일별 사용 통계</p>
-        <h2 id="year">
-            날짜 선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="select_year"
-                onchange="javascript:startdayAdmin();"></select>년 <select id="select_month"
-                onchange="javascript:startdayAdmin();"></select> 월 <select id="select_day"></select>일 ~
-            <select id="select_lastyear" onchange="javascript:lastdayAdmin();"></select>년 <select id="select_lastmonth"
-                onchange="javascript:lastdayAdmin();"></select> 월 <select id="select_lastday"></select>일
-        </h2>
-        <button onclick="getDateAdmin();">조회</button>
-
-        <h1 class="js-startDate" id="termDate"></h1>
+        <div style="position: absolute; left: 41%;">
+            <table>
+                <form action='/adminDay' method="POST">
+                <tr>
+                    <td>
+                        <h2>날짜 선택 &nbsp;&nbsp;&nbsp;</h2>
+                    </td>
+                    <td>
+                       
+                        <h2 >
+                            <select id="select_year" name="Year" onchange="javascript:startdayAdmin();"></select>년 <select
+                                id="select_month" name="Month" onchange="javascript:startdayAdmin();"></select> 월 <select
+                                id="select_day"  name="Day"></select>일 <h2>
+                        
+                    </td>
+                </tr>
+            
+            </table>
+            <button onclick="getDateAdmin();" style="display: block;
+        width: 70px;
+        height: 43px;
+        list-style: none;
+        font-size: 25px;
+        background-color: #EAD08C;
+        font-size: 18px;
+        color: #483F37;
+        font-weight: bold;
+        text-align: center;
+        line-height: 43px;
+        margin-left: 140px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        border: 1px solid #EAD08C;
+        border-radius: 10px;">조 회</button>
+            <h1 class="js-startDate" id="termDate" style="font-size: 23px; margin-top: 15px; margin-left: -20px;"></h1>
+        </div>
     </div>
-    <div class="yellowRoundBox">
+    <div class="yellowRoundBox" style="margin-top: 100px;">
         <table class="table">
             <thead>
                 <tr>
                     <th>날짜</th>
-                    <th>예약 시간</th>
+                    <th>사용자 아이디</th>
                     <th>예약 번호</th>
-                    <th>이용 여부</th>
-                    <th>상세정보</th>
                 </tr>
             </thead>
-            <tbody>
-            <tr>
-                <!-- 첫번째 줄 시작 -->
-                <td>첫번째 칸</td>
-                <td>두번째 칸</td>
-                <td>세번째 칸</td>
-                <td>네번째 칸</td>
-                <td><button type="button" onclick="location.href='/checkMyRecord'">확인하기</button></td>
-            </tr><!-- 첫번째 줄 끝 -->
-            <tr>
-                <!-- 두번째 줄 시작 -->
-                <td>첫번째 칸</td>
-                <td>두번째 칸</td>
-                <td>세번째 칸</td>
-                <td>네번째 칸</td>
-                <td><button type="button" onclick="location.href='/checkMyRecord'">확인하기</button></td>
-            </tr><!-- 두번째 줄 끝 -->
-            <tr>
-                <!-- 두번째 줄 시작 -->
-                <td>첫번째 칸</td>
-                <td>두번째 칸</td>
-                <td>세번째 칸</td>
-                <td>네번째 칸</td>
-                <td><button type="button" onclick="location.href='/checkMyRecord'">확인하기</button></td>
-            </tr><!-- 두번째 줄 끝 -->
-            <tr>
-                <!-- 두번째 줄 시작 -->
-                <td>첫번째 칸</td>
-                <td>두번째 칸</td>
-                <td>세번째 칸</td>
-                <td>네번째 칸</td>
-                <td><button type="button" onclick="location.href='/checkMyRecord'">확인하기</button></td>
-            </tr><!-- 두번째 줄 끝 -->
+        <tbody>
+            <% for(i = 0; i < Reservation.length; i++) { %>
+                <tr>
+                    <td><%=Reservation[i].ReservationDate %></td>
+                    <td><%=Reservation[i].ID %></td>
+                    <td><%=Reservation[i].reservationNum %></td>
+                    <td><button type="submit" onclick="location.href='/adminDay'">확인하기</button></td>
+                </tr>
+            <% } %>
         </tbody>
         </table>
         <div class="js-pickDate" id="date">
-
+        
 
         </div>
         <script src="./content/admin/getDateAdmin.js"></script>
         <script src="./content/admin/pickDateAdmin.js"></script>
         <script src="./content/admin/pickLastDateAdmin.js"></script>
-
+    </form>
 </body>
 
 </html>
