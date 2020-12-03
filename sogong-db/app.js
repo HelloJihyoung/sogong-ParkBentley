@@ -1158,7 +1158,7 @@ app.get('/adminMonth', function (req, res) {
         var Month=body.Month;
         var sql = 'SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum) count, Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? '
         console.log(Year,Month);
-        conn.query(sql, [Month-3,Month-2,Month-1,Month,Month-(-1)], function (err, Reservation, results) {
+        conn.query(sql, [Month-2,Month-1,Month,Month-(-1),Month-(-2)], function (err, Reservation, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
             console.log(Reservation);
@@ -1184,7 +1184,7 @@ app.post('/adminMonth', function (req, res) {
         var Month=body.Month;
         var sql = 'SELECT Count(ReservationNum) c , Month(ReservationDate) m FROM Reservation WHERE month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum) count, Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? UNION Select Count(ReservationNum), Month(ReservationDate)  from reservation where month(ReservationDate)=? '
         console.log(Year,Month);
-        conn.query(sql, [Month-3,Month-2,Month-1,Month,Month-(-1)], function (err, Reservation, results) {
+        conn.query(sql, [Month-2,Month-1,Month,Month-(-1),Month-(-2)], function (err, Reservation, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
             console.log(Reservation);
