@@ -12,7 +12,7 @@
 ![로그인](https://user-images.githubusercontent.com/46514182/100979033-94024a80-3586-11eb-9996-cb61fafa8bbc.png)
 
 ### 로그인 완료 후 메인 화면
-![로그인완료홈화면](https://user-images.githubusercontent.com/45346786/100971086-9316ec00-3579-11eb-98d3-3356f0993499.PNG)
+![parkBentley_main](https://user-images.githubusercontent.com/46514182/100979168-cd3aba80-3586-11eb-9c7c-2f54c1c55c84.png)
 
 ### 잔액 충전 화면
 ![잔액충전화면](https://user-images.githubusercontent.com/45346786/100971063-8db9a180-3579-11eb-808a-837a91b16516.PNG)
