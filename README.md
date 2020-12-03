@@ -106,11 +106,10 @@ CREATE DATABASE ParkBentley;
 ![초과결제완료](https://user-images.githubusercontent.com/45346786/100971073-901bfb80-3579-11eb-8325-3fa4d49949b6.PNG)
 
 ### 개인 사용 기록 조회 - 입력한 날짜와 이용 여부 상태에 따른 사용 기록 조회
-![사용기록 조회](https://user-images.githubusercontent.com/45346786/100971089-93af8280-3579-11eb-9351-ff0f3fa8ffba.PNG)
-![사용기록조회](https://user-images.githubusercontent.com/46514182/100979765-944f1580-3587-11eb-899d-c60b541d112f.png)
+![사용기록목록](https://user-images.githubusercontent.com/46514182/100982292-358b9b00-358b-11eb-9384-e46e7c0ab494.png)
 
 ### 개인 사용 기록 조회 - 자세히 보기
-![사용기록조회-자세히](https://user-images.githubusercontent.com/45346786/100971090-94481900-3579-11eb-9422-1031a3c5a770.PNG)
+![사용기록 조회](https://user-images.githubusercontent.com/45346786/100971089-93af8280-3579-11eb-9351-ff0f3fa8ffba.PNG)
 
 ### 예약하기 - 날짜 및 시간 선택
 ![예약하기](https://user-images.githubusercontent.com/45346786/100971053-8b574780-3579-11eb-8a1d-97439277ed8e.PNG)
