@@ -16,18 +16,19 @@
 
     </script>
     <nav class="loginText">
-        <%if ( Reservation.ID == "root" ) { %>
+        <%if ( list[0].ID == "root" ) { %>
             <li><a href="/login">Login</a></li>
             <li><a href="/join">Join</a></li>
         <% } else { %>
-            <li><a href="/main" id="logined"><%=Reservation.ID %>님 환영합니다!</a></li>
+            <li><a href="/main"><%=list[0].ID %>님 환영합니다!</a></li>
         <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
-
-            <a href="/main">Park Bentley</a>
-
+            <img src="./image/car.png" width="120" style="margin-left: 200px; margin-top: 30px;"/>
+            <div class="logoText">
+                <a href="/main">Park Bentley</a>
+            </div>
         </div>
         <ul class="navbar_menu">
             <li><a href="">서비스 이용</a>
@@ -50,7 +51,7 @@
                     <li><a href="/charge">잔액 충전</a></li>
                 </ul>
             </li>
-            <%if ( Reservation.ID == "admin" ) { %>
+            <%if ( list[0].ID == "admin" ) { %>
                 <li><a href="">사용 통계 조회</a>
                     <ul>
                         <li><a href="/adminMonth">월별 사용통계</a></li>
@@ -65,14 +66,37 @@
     <div class="yellowBar">
         <form action="/adminMonth" method="POST">
         <p class="yellowBarText">월별 사용 통계</p>
-        <h2>
-            날짜 선택&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id="select_year" name="Year"
-                onchange="javascript:pickMonthAdmin();"></select>년 <select id="select_month" name="Month"
-                onchange="javascript:pickMonthAdmin();"></select> 월
-        </h2>
-        <button type="submit" onclick=getMonthAdmin();>조회</button>
-    </form> 
-        <h1 class="js-startDate" id="termDate"></h1>
+        <div style="position: absolute; left: 42%;">
+            <table>
+            <tr>
+                <td>
+                    <h2>날짜 선택 &nbsp;&nbsp;&nbsp;</h2>
+                </td>
+                <td>
+                    <h2 >&nbsp;&nbsp;&nbsp;&nbsp;<select id="select_year" name="Year"
+                        onchange="javascript:pickMonthAdmin();"></select>년 <select id="select_month" name="Month"
+                        onchange="javascript:pickMonthAdmin();"></select> 월</h2>
+                </td>
+            </tr>
+        </table>
+        <button type="submit" onclick=getMonthAdmin(); style="display: block;
+        width: 70px;
+        height: 43px;
+        list-style: none;
+        font-size: 25px;
+        background-color: #EAD08C;
+        font-size: 18px;
+        color: #483F37;
+        font-weight: bold;
+        text-align: center;
+        line-height: 43px;
+        margin-left: 130px;
+        margin-top: 1px;
+        margin-bottom: 10px;
+        border: 1px solid #EAD08C;
+        border-radius: 10px;">조회</button>
+        </form> 
+         <h1 class="js-startDate" id="termDate" style="font-size: 23px; margin-top: 15px;"></h1> 
     </div>
     <div class="js-pickDate" id="date">
     </div>
@@ -104,3 +128,4 @@
 </body>
 
 </html>
+
