@@ -7,131 +7,366 @@
     <link rel="stylesheet" href="./css/checkMyReservation.css" />
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/join.css" />
+    <link rel="stylesheet" href="./css/checkMyRecord.css" />
     <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
     <style>
-        .text{
-    position: absolute;
-    width: 515px;
-    height: 45px;
-    top:350px;
-    margin-left: 300px;
+        .text {
+            position: absolute;
+            width: 515px;
+            height: 45px;
+            top: 350px;
+            margin-left: 300px;
 
-    font-family: "Red Rose";
-    font-style: normal;
-    font-weight: normal;
-    font-size: 36px;
-    line-height: 45px;
-    color: #483F37;
-}
-.yellowRoundBox{
-    position: absolute;
-    width: 1220px;
-    height: 450px;
-    left: 50%;
-    margin-top: 10px;
-    margin-left: -610px;
+            font-family: "Red Rose";
+            font-style: normal;
+            font-weight: normal;
+            font-size: 36px;
+            line-height: 45px;
+            color: #483F37;
+        }
 
-    background: #FFFFFF;
-    border: 3px solid #EAD08C;
-    border-radius: 53px;
-    color: #483F37;
-}
-.yellowRoundBox .table{
-    width: 1150px;
-    height: 360px;
-    text-align: center;
-    vertical-align: middle;
-}
-.yellowRoundBox .table th{
-    border-bottom: 1px solid #444444;
-    font-size: 20px;
-}
-  table {
-    width: 100%;
-    border-top: 1px solid #444444;
-    border-collapse: collapse;
-  }
-  td {
-    border-bottom: 1px solid #444444;
-    
-  }
-        .line{border-bottom:1px solid #483F37;}
-      </style>
+        .yellowRoundBox {
+            position: absolute;
+            width: 1220px;
+            height: 450px;
+            left: 50%;
+            margin-top: 10px;
+            margin-left: -610px;
+
+            background: #FFFFFF;
+            border: 3px solid #EAD08C;
+            border-radius: 53px;
+            color: #483F37;
+        }
+
+        .yellowRoundBox .table {
+            width: 1150px;
+            height: 360px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .yellowRoundBox .table th {
+            border-bottom: 1px solid #444444;
+            font-size: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-top: 1px solid #444444;
+            border-collapse: collapse;
+        }
+
+        td {
+            border-bottom: 1px solid #444444;
+
+        }
+
+        .line {
+            border-bottom: 1px solid #483F37;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #483F37;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+            padding: 8px 12px;
+        }
+
+        .loginText {
+            list-style: none;
+            display: flex;
+            align-items: right;
+            background-color: white;
+            padding: 8px 12px;
+        }
+
+        .loginText li:hover {
+            background-color: #C4C4C4;
+        }
+
+        .logo {
+            width: 400px;
+            top: 66px;
+            float: left;
+        }
+
+        .logo .logoText {
+            /* park bentley */
+            position: absolute;
+            float: left;
+            width: 146px;
+            height: 79px;
+            left: 350px;
+            top: 66px;
+
+            font-family: "Red Rose";
+            font-style: normal;
+            font-weight: normal;
+            font-size: 45px;
+            line-height: 45px;
+
+            color: #483F37;
+        }
+
+        .navbar_menu {
+            /* like 서비스 이용 */
+            display: flex;
+            list-style: none;
+            padding-left: 0;
+            /* padding-right: 10; */
+            position: absolute;
+            /* width: 117px;
+   height: 30px; */
+            left: 673px;
+            top: 106px;
+
+            font-family: "Red Rose";
+            font-style: normal;
+            font-weight: normal;
+            font-size: 24px;
+            line-height: 30px;
+            /* identical to box height */
+            color: #857E71;
+
+
+        }
+
+        .navbar_menu li {
+            padding: 8px 12px;
+
+        }
+
+        .navbar_menu ul {
+            list-style: none;
+            padding-left: 0;
+            border: none;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .navbar_menu li a {
+            margin: 0px;
+            padding: 0px 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .loginText {
+            /* 로그인 회원가입 */
+            position: absolute;
+            width: 138px;
+            height: 22px;
+            left: 1259px;
+            top: 44px;
+            font-family: " Red Rose";
+            text-decoration: none;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 18px;
+            line-height: 22px;
+            list-style: none;
+            color: #EAD08C;
+        }
+
+        .loginText li {
+            padding-left: 0;
+            padding: 8px 12px;
+        }
+
+        .loginText li a {
+            margin: 0px;
+            padding: 0px 10px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .yellowBar {
+            /* Rectangle 3 */
+            position: absolute;
+            vertical-align: middle;
+            width: 100%;
+            height: 96px;
+            left: 0px;
+            top: 193px;
+            background: #EAD08C;
+
+        }
+
+        .yellowBarText {
+            text-align: center;
+            vertical-align: middle;
+
+            font-family: "Red Rose";
+            font-style: normal;
+            font-weight: normal;
+
+            font-size: 35px;
+            line-height: 35px;
+            /* identical to box height */
+            color: #886E50;
+        }
+
+        /*--------------*/
+        .navbar_menu li a:hover,
+        .navbar_menu ul li:hover a {
+            background: #C4C4C4;
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+
+        .navbar_menu li ul {
+            background: #C4C4C4;
+            display: none;
+            height: auto;
+            border: 0px;
+            position: absolute;
+            width: 200px;
+            z-index: 200;
+        }
+
+        .navbar_menu li:hover ul {
+            display: block;
+        }
+
+        .navbar_menu li li {
+            background: #C4C4C4;
+            display: block;
+            float: none;
+            margin: 0px;
+            padding: 0px;
+            width: 200px;
+        }
+
+        .navbar_menu li:hover li a {
+            background: none;
+        }
+
+        .navbar_menu li ul a {
+            display: block;
+            height: 30px;
+            margin: 0px;
+            padding: 0px 10px 0px 15px;
+            text-align: left;
+        }
+
+        .navbar_menu li ul a:hover,
+        .navbar_menu li ul li:hover a {
+            background: rgb(171, 171, 171);
+            border: 0px;
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .navbar_menu p {
+            clear: left;
+        }
+
+        .text {
+            font-family: "Red Rose";
+            margin-top: -27%;
+            text-align: center;
+            margin-left: 28%;
+
+        }
+
+        div .res {
+            margin-left: 30px;
+            font-weight: bold;
+            font-size: 25px;
+            line-height: 70px;
+            display: inline;
+            margin-top: -50px;
+        }
+
+        h2 .write {
+            text-align: right;
+        }
+    </style>
 </head>
 
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">
-        <li><a href="/login">Login</a></li>
-        <li><a href="/join">Join</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="join.html">Join</a></li>
     </nav>
     <nav class="navbar">
         <div class="logo">
-            <a href="/main">Park Bentley</a>
+            <img src="/image/car.png" width="120" style="margin-left: 200px; margin-top: 30px;"/>
+            <div class="logoText">
+                <a href="/main">Park Bentley</a>
+            </div>
         </div>
         <ul class="navbar_menu">
             <li><a href="">서비스 이용</a>
                 <ul>
-                    <li><a href="/makeReservation">예약하기</a></li>
-                    <li><a href="/changeReservation">예약변경</a></li>
-                    <li><a href="/checkReservation">예약확인</a></li>
-
+                    <li><a href="./makeReservation.html">예약하기</a></li>
+                    <li><a href="./changeReservation.html">예약변경</a></li>
+                    <li><a href="#">예약확인</a></li>
                 </ul>
             </li>
             <li><a href="">입출차 확인</a>
                 <ul>
-                    <li><a href="/enterCar">입차하기</a></li>
-                    <li><a href="/departCar">출차하기</a></li>
+                    <li><a href="./enterCar.html">입차하기</a></li>
+                    <li><a href="./departCar.html">출차하기</a></li>
                 </ul>
             </li>
             <li><a href="">마이페이지</a>
                 <ul>
-                    <li><a href="/myrecord">사용 기록 조회</a></li>
-                    <li><a href="/charge">잔액 충전</a></li>
+                    <li><a href="myrecord.html">사용 기록 조회</a></li>
+                    <li><a href="charge.html">잔액 충전</a></li>
                 </ul>
             </li>
 
 
             <li><a href="">사용 통계 조회</a>
                 <ul>
-                    <li><a href="/adminMonth">월별 사용통계</a></li>
-                    <li><a href="/adminDay">일별 사용통계</a></li>
+                    <li><a href="adminMonth.html">월별 사용통계</a></li>
+                    <li><a href="adminDay.html">일별 사용통계</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
     <div class="yellowBar">
         <p class="yellowBarText">사용기록 조회</p>
-        <div class="yellowRoundBox">
-            <table class="table" border="0">
-                <caption>Transaction</caption>
-                <tr><!-- 첫번째 줄 시작 -->
-                    <td class="line">예약 날짜</td>
-                    <td class="line"><%=Reservation.ReservationDate %></td>
-                </tr><!-- 첫번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td class="line">예약 시간</td>
-                    <td class="line"><%=Reservation.StartTime %>~ <%=Reservation.EndTime %></td>
-                </tr><!-- 두번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td class="line">예약 번호</td>
-                    <td class="line"><%=Reservation.ReservationNum %></td>
-                </tr><!-- 두번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td class="line">차량 번호</td>
-                    <td class="line"><%=Reservation.CarNum %></td>
-                </tr><!-- 두번째 줄 끝 -->
-                <tr><!-- 두번째 줄 시작 -->
-                    <td class="line">결제 금액</td>
-                    <td class="line"><%=Reservation.Price %></td>
-                </tr><!-- 두번째 줄 끝 -->
-                
-            </table>
+        <div class="yellowRoundBox" style="height: 600px;">
+            <h1 class="text">Transaction</h1>
+            <br><br><br><br>
+            <div class="res">예약 날짜 </div>
+            <h2 class="write" style="display: inline; text-align: right;"><%=Reservation.ReservationDate %></h2><br>
+            <div class="res">예약 시간 </div>
+            <h2 class="write" style="display: inline; text-align: right;"><%=Reservation.StartTime %>~
+                <%=Reservation.EndTime %></h2><br>
+            <div class="res">예약 번호 </div>
+            <h2 class="write" style="display: inline;"><%=Reservation.ReservationNum %></h2><br>
+            <div class="res">차량 번호 </div>
+            <h2 class="write" style="display: inline;"><%=Reservation.CarNum %></h2><br>
+            <div class="res">결제 금액 </div>
+            <h2 class="write" style="display: inline;"><%=Reservation.Price %></h2><br>
+
+            <div class="red" style="color:red; margin-left: 30px; margin-top: -20px;">
+                <h2>※주의<h2>
+                        <h2>선결제 시 기본금액이 부과되며, 예약시간 초과 시 시간당 1000원의 추가 요금이 발생 됩니다.</h2>
+                        <h2>예약 최소는 하루 전, 예약 변경은 예약 1시간 전까지 가능합니다.</h2>
+            </div>
+
         </div>
-      </div>
+    </div>
 
     <link href='https://fonts.googleapis.com/css?family=Red Rose' rel='stylesheet'>
-    
+
 
 </body>
 
