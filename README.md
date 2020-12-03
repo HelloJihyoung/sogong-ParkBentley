@@ -87,6 +87,10 @@
 ### 관리자 모드 - 일별 사용량 확인
 ![일별사용통계](https://user-images.githubusercontent.com/46514182/100978055-31f51580-3585-11eb-8acb-85030553c09b.png)
 
+### 관리자 모드 - 월별 사용 통계 확인
+![월별사용통계](https://user-images.githubusercontent.com/46514182/100979482-260a5300-3587-11eb-9cc0-bdb13b84cacc.png)
+
+
  ## 사용법
  ### master branch 기준
   ```
