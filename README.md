@@ -15,7 +15,7 @@
 ![parkBentley_main](https://user-images.githubusercontent.com/46514182/100979168-cd3aba80-3586-11eb-9c7c-2f54c1c55c84.png)
 
 ### 잔액 충전 화면
-![잔액충전화면](https://user-images.githubusercontent.com/45346786/100971063-8db9a180-3579-11eb-808a-837a91b16516.PNG)
+![잔액충전](https://user-images.githubusercontent.com/46514182/100979663-6e297580-3587-11eb-95c8-351537aa405e.png)
 
 ### 입차하기 - 차량 번호 인식
 ![입차하기-차량번호인식](https://user-images.githubusercontent.com/45346786/100971061-8db9a180-3579-11eb-97ca-32d5ba9da7dd.PNG)
