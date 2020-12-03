@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-
+    <form action="/payExtraFee" method="POST">
 <head>
     <title>ParkBentley</title>
     <meta charset="utf-8" />
@@ -17,7 +17,7 @@
             <li><a href="/login">Login</a></li>
             <li><a href="/join">Join</a></li>
         <% } else { %>
-            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
+            <li><a href="/main" id="logined"><%=list[0].ID%>님 환영합니다!</a></li>
         <% } %>
     </nav>
     <nav class="navbar">
@@ -68,18 +68,18 @@
     <div class="container">
         <div class="leftYellowBox">
             <div class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div class="text">기존 금액 : <%=list[0].Price%></div>
+            <div class="text">기존 금액 : <%=list[0].Price%>원</div>
             <div class="text">예약 출차 시간 : <%=list[0].EndTime%></div>
             <div class="text">실제 출차 시간 : <%=list[0].R_EndTime%></div>
 
         </div>
         <div class="rightYellowBox">
             <div class="text">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-            <div class="text">초과 금액 : <%= list[0].overPrice%></div>
-            <div class="text">총 결제 금액 : <%list=[0].PaidMoney + list[0].overPrice%></div>
+            <div class="text">초과 금액 : <%=list[0].OverPrice%>원</div>
+            
 
             <div id="payButton">
-                <button type="button" id="buttonText">결제하기</button>
+                <button type="submit" id="buttonText">결제하기</button>
             </div>
         </div>
 
@@ -87,5 +87,5 @@
     
     
 </body>
-
+</form>
 </html>

@@ -17,8 +17,12 @@
 
     </script>
     <nav class="loginText">
-        <li><a href="/login">Login</a></li>
-        <li><a href="/join">join</a></li>
+        <%if ( list[0].ID == "root" ) { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+        <% } else { %>
+            <li><a href="/main" id="logined"><%=list[0].ID%>님 환영합니다!</a></li>
+        <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
@@ -94,14 +98,14 @@
                 <% } %>
 
             </tbody>
-            <ul class="w3-pagination">
+            <!-- <ul class="w3-pagination">
                 <li><a href="#" class="w3-hover-purple">&laquo;</a></li>
                 <li><a href="#" class="w3-hover-green">1</a></li>
                 <li><a href="#" class="w3-hover-red">2</a></li>
                 <li><a href="#" class="w3-hover-blue">3</a></li>
                 <li><a href="#" class="w3-hover-black">4</a></li>
                 <li><a href="#" class="w3-hover-orange">&raquo;</a></li>
-              </ul>
+              </ul> -->
         </table>
         <div class="js-pickDate" id="date">
 

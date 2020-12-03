@@ -248,7 +248,7 @@ app.post('/enterCar', function (req, res) {
 
     //carNum = '152가 3018';
 
-    var filename = 'C:/Users/ey/Desktop/parkBentley/sogong-db/image6.jpg';
+    var filename = 'C:/Users/ey/Desktop/parkBentley/sogong-db/image7.jpg';
     var ocr = function(filename) {
         var carNum = "";
         Tesseract.recognize(filename, 'kor')
@@ -435,9 +435,9 @@ app.get('/afterEnterCar', function (req, res) {
             var todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             var todayTime = todayDate.getTime();
             console.log("아이디예약 번호" + results[0].ReservationNum);
-            var sql2 = 'SELECT * FROM reservation WHERE ReservationDate = ? AND CarNum = ? AND UseStatus="예약완료"';
+            var sql2 = 'SELECT * FROM reservation WHERE ReservationDate = ? AND UseStatus="예약완료"';
             console.log("오늘의 Date : "+ todayDate);
-            conn.query(sql2, [todayDate, carNum], function(err,results,rows, fields) {
+            conn.query(sql2, [todayDate], function(err,results,rows, fields) {
                 if(err) console.log('query is not excuted. select fail...\n' + err);
                 if(!results[0]) { // 값이 없을 때
                     console.log("오늘 날짜와 일치하는 예약 내역이 없습니다.");
@@ -1052,17 +1052,31 @@ app.get('/index', function (req, res) {
 app.get('/payExtraFee', function (req, res) {
     var userID = loginMemberID;
 
-    var sql = 'SELECT * FROM reservation,cartransaction WHERE reservation.ID=?';
+    var sql = 'SELECT * FROM reservation,cartransaction WHERE reservation.ID=? AND reservation.UseStatus="이용완료"';
 
     console.log("현재 ID : " + userID);
     
     conn.query(sql, [userID], function (err, rows, results) {
         if(err) console.log('query is not excuted. select fail...\n' + err);
         else {
-            res.render('payExtraFee.ejs', {
+            res.render('payExtraFee', {
                 list : rows
             });
             console.log(rows);
+        }
+    });
+});
+app.post('/payExtraFee', function (req, res) {
+    var userID = loginMemberID;
+
+    var sql = 'SELECT * FROM reservation WHERE ID=?';
+
+    console.log("현재 ID : " + userID);
+    
+    conn.query(sql, [userID], function (err, rows, results) {
+        if(err) console.log('query is not excuted. select fail...\n' + err);
+        else {
+            res.send('<script type="text/javascript">alert("초과 결제 완료되었습니다.");window.location="/main";</script>');
         }
     });
 });

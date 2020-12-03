@@ -15,8 +15,12 @@
 <body>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <nav class="loginText">
-        <li><a href="/login">Login</a></li>
-        <li><a href="/join">Join</a></li>
+        <%if ( list[0].ID == "root" ) { %>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/join">Join</a></li>
+        <% } else { %>
+            <li><a href="/main" id="logined"><%=list[0].ID %>님 환영합니다!</a></li>
+        <% } %>
     </nav>
     <nav class="navbar">
         <div class="logo">
