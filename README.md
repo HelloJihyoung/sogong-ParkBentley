@@ -106,6 +106,7 @@ CREATE DATABASE ParkBentley;
 ![초과결제완료](https://user-images.githubusercontent.com/45346786/100971073-901bfb80-3579-11eb-8325-3fa4d49949b6.PNG)
 
 ### 개인 사용 기록 조회 - 입력한 날짜와 이용 여부 상태에 따른 사용 기록 조회
+![사용기록 조회](https://user-images.githubusercontent.com/45346786/100971089-93af8280-3579-11eb-9351-ff0f3fa8ffba.PNG)
 ![사용기록조회](https://user-images.githubusercontent.com/46514182/100979765-944f1580-3587-11eb-899d-c60b541d112f.png)
 
 ### 개인 사용 기록 조회 - 자세히 보기
